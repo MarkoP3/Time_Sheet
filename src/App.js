@@ -19,6 +19,7 @@ import DaySheet from './Components/IndexScreen/DaySheet/DaySheet';
 import { useState } from 'react';
 function App() {
   const [date, setdate] = useState(new Date())
+  console.log(date+"App.js");
   function changeMonth(addValue)
   {
     setdate(new Date(date.setMonth(date.getMonth()+addValue)));
@@ -45,7 +46,7 @@ function App() {
         </Route>
         <Route path="/timesheet">
             <Header></Header>
-            <TimeSheet date={date} changeDate={changeDate} changeMonth={changeMonth}></TimeSheet>
+            <TimeSheet date={date} changeMonth={changeMonth} changeDate={changeDate}> </TimeSheet>
             <Footer></Footer>
         </Route>
         <Route path="/clients">

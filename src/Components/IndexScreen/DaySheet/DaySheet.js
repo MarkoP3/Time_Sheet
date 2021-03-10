@@ -5,7 +5,7 @@ import BottomBar from './BottomBar/BottomBar'
 import HoursTable from './HoursTable/HoursTable'
 import WeekNavigationBox from './WeekNavigationBox/WeekNavigationBox'
 function DaySheet({date,changeDate}) {
-
+  console.log(date+"DaySheet.js");
     return (
       <div className="wrapper">
         <section className="content">
