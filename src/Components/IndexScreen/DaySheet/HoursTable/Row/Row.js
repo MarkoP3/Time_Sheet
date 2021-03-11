@@ -1,29 +1,29 @@
 import React from "react";
 
-function Row({clients,projects,categories}) {
+function Row({ clients, projects, categories }) {
   return (
     <tr>
       <td>
         <select>
           <option>Choose client</option>
-          {clients.map((v,i)=>{
-              return <option>{v}</option>
+          {clients.map((v, i) => {
+            return <option>{v}</option>;
           })}
         </select>
       </td>
       <td>
         <select>
           <option>Choose project</option>
-          {projects.map((v,i)=>{
-              return <option>{v}</option>
+          {projects.map((v, i) => {
+            return <option>{v}</option>;
           })}
         </select>
       </td>
       <td>
         <select>
           <option>Choose category</option>
-          {categories.map((v,i)=>{
-              return <option>{v}</option>
+          {categories.map((v, i) => {
+            return <option>{v}</option>;
           })}
         </select>
       </td>

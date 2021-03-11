@@ -1,8 +1,8 @@
-import React from 'react'
-import {NavLink} from 'react-router-dom'
+import React from "react";
+import { NavLink } from "react-router-dom";
 function MenuBig() {
-    return (
-        <ul className="menu">
+  return (
+    <ul className="menu">
       <li>
         <NavLink to="/timesheet" className="btn nav">
           Time Sheet
@@ -34,7 +34,7 @@ function MenuBig() {
         </NavLink>
       </li>
     </ul>
-    )
+  );
 }
 
-export default MenuBig
+export default MenuBig;

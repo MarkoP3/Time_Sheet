@@ -1,12 +1,12 @@
-import React from 'react'
-import Item from './Item/Item'
+import React from "react";
+import Item from "./Item/Item";
 
 function List() {
-    return (
-        <div className="accordion-wrap projects">
-            <Item></Item>
-        </div>
-    )
+  return (
+    <div className="accordion-wrap projects">
+      <Item></Item>
+    </div>
+  );
 }
 
-export default List
+export default List;

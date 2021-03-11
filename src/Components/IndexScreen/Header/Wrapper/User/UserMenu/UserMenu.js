@@ -1,14 +1,14 @@
-import React from 'react'
-import Menu from './Menu/Menu';
+import React from "react";
+import Menu from "./Menu/Menu";
 
 function UserMenu() {
-    return (
-        <li>
-        <a href="javascript:;">Sladjana Miljanovic</a>
-        <div className="invisible"></div>
-        <Menu></Menu>
-      </li>
-    )
+  return (
+    <li>
+      <a href="javascript:;">Sladjana Miljanovic</a>
+      <div className="invisible"></div>
+      <Menu></Menu>
+    </li>
+  );
 }
 
-export default UserMenu
+export default UserMenu;

@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-function BottomBar({totalHours}) {
+function BottomBar({ totalHours }) {
   return (
     <div class="total">
       <NavLink to="/timesheet">
