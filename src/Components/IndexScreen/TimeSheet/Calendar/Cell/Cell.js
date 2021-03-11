@@ -2,11 +2,11 @@ import React from "react";
 import Date from "./Date/Date";
 import Hour from "./Hour/Hour";
 
-function Cell({ date, changeDate, hours }) {
+function Cell({ date, hours }) {
   return (
     <td className="positive previous">
       <Date date={date}></Date>
-      <Hour changeDate={changeDate} hours={hours} date={date}></Hour>
+      <Hour hours={hours} date={date}></Hour>
     </td>
   );
 }

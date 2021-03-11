@@ -3,16 +3,23 @@ import Cell from "./Cell/Cell";
 import Header from "./Header/Header";
 import MobileHeader from "./MobileHeader/MobileHeader";
 
-function Calendar({ date, changeDate }) {
-  var rows = [1, 2, 3, 4, 5];
+let milisecondsPerDay = 86400000;
+let daysInWeek = 7;
+function toPreviousMondayDays(date) {
+  return (date.getDay() == 0 ? daysInWeek : date.getDay()) - 1;
+}
+function Calendar({ date }) {
+  var rows = [1, 2, 3, 4, 5, 6];
   var cols = [1, 2, 3, 4, 5, 6, 7];
   let firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+  let lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 1);
   let startingDate = new Date(
-    firstDay.setDate(
-      firstDay.getDate() -
-        ((firstDay.getDay() == 0 ? 7 : firstDay.getDay()) - 1)
-    )
+    firstDay.setDate(firstDay.getDate() - toPreviousMondayDays(firstDay))
   );
+  const diffDays = Math.ceil(
+    Math.abs(startingDate - lastDay) / milisecondsPerDay
+  );
+  rows.length = Math.ceil(diffDays / daysInWeek);
   return (
     <table className="month-table">
       <tbody>
@@ -26,13 +33,7 @@ function Calendar({ date, changeDate }) {
                 startingDate = new Date(
                   startingDate.setDate(startingDate.getDate() + 1)
                 );
-                return (
-                  <Cell
-                    date={cellDate}
-                    changeDate={changeDate}
-                    hours="5"
-                  ></Cell>
-                );
+                return <Cell date={cellDate} hours="5"></Cell>;
               })}
             </tr>
           );

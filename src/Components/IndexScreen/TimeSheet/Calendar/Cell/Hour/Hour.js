@@ -1,12 +1,17 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
-
-function Hour({ changeDate, hours, date }) {
+import { Link } from "react-router-dom";
+function generateDaysUrl(date)
+{
+  return `/timesheet/days/${date.getFullYear()}/${date.getMonth()+1}/${date.getDate()}`;
+}
+function Hour({ hours, date }) {
+  
   return (
     <div className="hours">
-      <NavLink to="/timesheet/days" onClick={(e) => changeDate(date)}>
-        Hours: <span>{hours}</span>
-      </NavLink>
+      <Link
+        to={generateDaysUrl(date)}
+        class="prev"
+      >Hours: <span>{hours}</span></Link>
     </div>
   );
 }

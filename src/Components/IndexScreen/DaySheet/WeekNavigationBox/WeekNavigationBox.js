@@ -2,8 +2,9 @@ import React from "react";
 import Days from "./Days/Days";
 import WeekNavigation from "./WeekNavigation/WeekNavigation";
 
-function WeekNavigationBox({ date, changeDate }) {
-  console.log(date + "WeekNavBox.js");
+let milisecondPerDay=86400000;
+let daysPerWeek=7;
+function WeekNavigationBox({ date }) {
   var days = [
     "MONDAY",
     "TUESDAY",
@@ -15,15 +16,14 @@ function WeekNavigationBox({ date, changeDate }) {
   ];
   let startingDate = new Date(
     new Date(date).setDate(
-      date.getDate() - ((date.getDay() == 0 ? 7 : date.getDay()) - 1)
+      date.getDate() - ((date.getDay() == 0 ? daysPerWeek : date.getDay()) - 1)
     )
   );
-  let endingDate = new Date(new Date(date).setDate(startingDate.getDate() + 6));
+  let endingDate = new Date(new Date(date).setDate(startingDate.getDate() + daysPerWeek-1));
   function getWeek(date) {
     var onejan = new Date(date.getFullYear(), 0, 1);
-    return Math.ceil(((date - onejan) / 86400000 + onejan.getDay()) / 7);
+    return Math.ceil(((date - onejan) / milisecondPerDay + onejan.getDay()) / daysPerWeek);
   }
-  console.log(date);
   return (
     <div class="grey-box-wrap">
       <WeekNavigation
@@ -31,13 +31,11 @@ function WeekNavigationBox({ date, changeDate }) {
         date={date}
         endingDate={endingDate}
         week={getWeek(date) - 1}
-        changeDate={changeDate}
       ></WeekNavigation>
       <Days
         days={days}
         date={date}
         startingDate={startingDate}
-        changeDate={changeDate}
       ></Days>
     </div>
   );

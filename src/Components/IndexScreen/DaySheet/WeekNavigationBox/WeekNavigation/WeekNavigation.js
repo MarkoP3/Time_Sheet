@@ -1,16 +1,22 @@
 import React from "react";
-
-function WeekNavigation({ startingDate, date, endingDate, week, changeDate }) {
-  console.log(date + "WeekNavigation.js");
+import { Link } from "react-router-dom";
+function generateDaysUrl(date)
+{
+  return `/timesheet/days/${date.getFullYear()}/${date.getMonth()+1}/${date.getDate()}`;
+}
+function WeekNavigation({ startingDate, date, endingDate, week }) {
+  let nextWeek=new Date(new Date(date).setDate(date.getDate() + 7));
+  let prevWeek=new Date(new Date(date).setDate(date.getDate() - 7));
+  console.log(date+"date");
+  console.log('prevWeek', prevWeek)
   return (
     <div class="top">
-      <a
-        href="javascript:;"
+      <Link
+        to={generateDaysUrl(prevWeek)}
         class="prev"
-        onClick={(e) => changeDate(new Date(date.setDate(date.getDate() - 7)))}
       >
         <i class="zmdi zmdi-chevron-left"></i>previous week
-      </a>
+      </Link>
       <span class="center">
         {startingDate.toLocaleDateString("default", { month: "long" })}{" "}
         {startingDate.toLocaleDateString("default", { day: "2-digit" })} -{" "}
@@ -18,13 +24,12 @@ function WeekNavigation({ startingDate, date, endingDate, week, changeDate }) {
         {endingDate.toLocaleDateString("default", { day: "2-digit" })},{" "}
         {endingDate.getFullYear()} (week {week})
       </span>
-      <a
-        href="javascript:;"
+      <Link
+        to={generateDaysUrl(nextWeek)}
         class="next"
-        onClick={(e) => changeDate(new Date(date.setDate(date.getDate() + 7)))}
       >
         next week<i class="zmdi zmdi-chevron-right"></i>
-      </a>
+      </Link>
     </div>
   );
 }

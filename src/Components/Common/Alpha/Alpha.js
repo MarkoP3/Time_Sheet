@@ -1,7 +1,7 @@
 import React from "react";
 import Letter from "./Letter/Letter";
 
-function Alpha({ containingLetters, activeLetter, changeActive }) {
+function Alpha({ containingLetters, activeLetter, changeActive, filter }) {
   let alphabet = [
     "a",
     "b",
@@ -46,6 +46,7 @@ function Alpha({ containingLetters, activeLetter, changeActive }) {
                   : "disabled"
               }
               changeActive={changeActive}
+              filter={filter}
             ></Letter>
           );
         })}

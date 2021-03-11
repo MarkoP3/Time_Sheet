@@ -1,7 +1,7 @@
 import React from "react";
 import DayCell from "./DayCell/DayCell";
 
-function Days({ days, date, startingDate, changeDate }) {
+function Days({ days, date, startingDate }) {
   return (
     <div class="bottom">
       <ul class="days">
@@ -15,7 +15,6 @@ function Days({ days, date, startingDate, changeDate }) {
             <DayCell
               date={cellDate}
               active={cellDate.getTime() === date.getTime() ? "active" : ""}
-              changeDate={changeDate}
             ></DayCell>
           );
         })}

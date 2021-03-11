@@ -1,6 +1,6 @@
 import React from "react";
-import FancySides from "../../../../Common/FancySides/FancySides";
 import Form from "./Form/Form";
+import FancySides from "../../../../Common/FancySides/FancySides";
 
 function CreateModal({ displayValue, changeDisplayModal }) {
   return (
@@ -11,7 +11,7 @@ function CreateModal({ displayValue, changeDisplayModal }) {
         height: "auto",
         top: "calc( 50% - 201px )",
         left: "calc( 50% - 235px )",
-        display: displayValue,
+        display:  displayValue ,
       }}
     >
       <div id="fancybox-outer">
@@ -23,13 +23,9 @@ function CreateModal({ displayValue, changeDisplayModal }) {
         id="fancybox-close"
         style={{ display: "inline" }}
       ></a>
-      <div id="fancybox-title" style={{ display: "none" }}></div>
-      <a href="javascript:;" id="fancybox-left" style={{ display: "none" }}>
-        <span class="fancy-ico" id="fancybox-left-ico"></span>
-      </a>
-      <a href="javascript:;" id="fancybox-right" style={{ display: "none" }}>
-        <span class="fancy-ico" id="fancybox-right-ico"></span>
-      </a>
+      <div id="fancybox-title" style={{display: "none"}}></div>
+      <a href="javascript:;" id="fancybox-left" style={{display: "none"}}><span class="fancy-ico" id="fancybox-left-ico"></span></a>
+      <a href="javascript:;" id="fancybox-right" style={{display: "none"}}><span class="fancy-ico" id="fancybox-right-ico"></span></a>
     </div>
   );
 }

@@ -3,9 +3,10 @@ import { NavLink } from "react-router-dom";
 
 function TotalBar({ text, total, isDailySheet }) {
   function isDaily() {
+    let url = window.location.pathname.split("/");
     if (isDailySheet != undefined) {
       return (
-        <NavLink to="/timesheet">
+        <NavLink to={`/timesheet/${url[3]}/${url[4]}`}>
           <i></i>back to monthly view
         </NavLink>
       );

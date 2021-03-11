@@ -1,8 +1,12 @@
 import React from "react";
 
-function Add() {
+function Add({ changeModalDisplay }) {
   return (
-    <a href="#new-member" className="link new-member-popup">
+    <a
+      onClick={(e) => changeModalDisplay("block")}
+      href="#new-member"
+      className="link new-member-popup"
+    >
       Create new project
     </a>
   );
