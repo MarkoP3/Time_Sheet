@@ -1,7 +1,8 @@
 import React from "react";
+import { days } from "../../../../Helper/Helper";
 import DayCell from "./DayCell/DayCell";
 
-function Days({ days, date, startingDate }) {
+function Days({ date, startingDate }) {
   return (
     <div class="bottom">
       <ul class="days">

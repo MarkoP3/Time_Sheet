@@ -117,6 +117,9 @@ function App() {
             <Reports></Reports>
             <Footer></Footer>
           </Route>
+          <Route path="/">
+            <Redirect to={`/timesheet/${new Date().getFullYear()}/${new Date().getMonth()+1}`}></Redirect>
+          </Route>
         </Switch>
       </Router>
     </div>

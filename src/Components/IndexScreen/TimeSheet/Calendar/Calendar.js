@@ -1,25 +1,16 @@
 import React from "react";
+import { toPreviousMondayDays, numOfWeeksFromTo } from "../../../Helper/Helper";
 import Cell from "./Cell/Cell";
 import Header from "./Header/Header";
 import MobileHeader from "./MobileHeader/MobileHeader";
-
-let milisecondsPerDay = 86400000;
-let daysInWeek = 7;
-function toPreviousMondayDays(date) {
-  return (date.getDay() == 0 ? daysInWeek : date.getDay()) - 1;
-}
 function Calendar({ date }) {
   var rows = [1, 2, 3, 4, 5, 6];
   var cols = [1, 2, 3, 4, 5, 6, 7];
-  let firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
   let lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 1);
   let startingDate = new Date(
-    firstDay.setDate(firstDay.getDate() - toPreviousMondayDays(firstDay))
+    new Date(date).setDate(date.getDate() - toPreviousMondayDays(date))
   );
-  const diffDays = Math.ceil(
-    Math.abs(startingDate - lastDay) / milisecondsPerDay
-  );
-  rows.length = Math.ceil(diffDays / daysInWeek);
+  rows.length = numOfWeeksFromTo(startingDate, lastDay);
   return (
     <table className="month-table">
       <tbody>

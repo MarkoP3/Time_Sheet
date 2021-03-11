@@ -1,20 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
-function generateDaysUrl(date)
-{
-  return `/timesheet/days/${date.getFullYear()}/${date.getMonth()+1}/${date.getDate()}`;
-}
-function WeekNavigation({ startingDate, date, endingDate, week }) {
-  let nextWeek=new Date(new Date(date).setDate(date.getDate() + 7));
-  let prevWeek=new Date(new Date(date).setDate(date.getDate() - 7));
-  console.log(date+"date");
-  console.log('prevWeek', prevWeek)
+import {
+  generateDaysUrl,
+  getWeekOfDates,
+  getYearOfDates,
+  nextWeek,
+  prevWeek,
+} from "../../../../Helper/Helper";
+
+function WeekNavigation({ startingDate, date, endingDate }) {
   return (
     <div class="top">
-      <Link
-        to={generateDaysUrl(prevWeek)}
-        class="prev"
-      >
+      <Link to={generateDaysUrl(prevWeek(date))} class="prev">
         <i class="zmdi zmdi-chevron-left"></i>previous week
       </Link>
       <span class="center">
@@ -22,12 +19,10 @@ function WeekNavigation({ startingDate, date, endingDate, week }) {
         {startingDate.toLocaleDateString("default", { day: "2-digit" })} -{" "}
         {endingDate.toLocaleDateString("default", { month: "long" })}{" "}
         {endingDate.toLocaleDateString("default", { day: "2-digit" })},{" "}
-        {endingDate.getFullYear()} (week {week})
+        {getYearOfDates(startingDate, endingDate)} (week{" "}
+        {getWeekOfDates(startingDate, endingDate)})
       </span>
-      <Link
-        to={generateDaysUrl(nextWeek)}
-        class="next"
-      >
+      <Link to={generateDaysUrl(nextWeek(date))} class="next">
         next week<i class="zmdi zmdi-chevron-right"></i>
       </Link>
     </div>

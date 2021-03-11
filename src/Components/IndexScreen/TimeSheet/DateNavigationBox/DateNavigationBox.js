@@ -1,13 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import {generateUrlNextMonth,generateUrlPrevMonth} from '../../../Helper/Helper'
 
 function DateNavigationBox({ date }) {
-  function generateUrlPrevMonth(date) {
-    return `/timesheet/${(date.getMonth() == 0? `${(date.getFullYear() -1)}/12`: `${date.getFullYear()}/${date.getMonth()}`)}`
-  }
-  function generateUrlNextMonth(date) {
-    return `/timesheet/${(date.getMonth() == 11? `${(date.getFullYear() + 1)}/1`: `${date.getFullYear()}/${date.getMonth() + 2}`)}`
-  }
   return (
     <div className="grey-box-wrap">
       <div className="top">
