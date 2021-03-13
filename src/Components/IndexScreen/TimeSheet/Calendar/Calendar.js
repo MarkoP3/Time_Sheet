@@ -1,16 +1,23 @@
 import React from "react";
-import { toPreviousMondayDays, numOfWeeksFromTo } from "../../../Helper/Helper";
+import {
+  toPreviousMondayDays,
+  numOfWeeksFromTo,
+  daysInWeek,
+} from "../../../Helper/Helper";
 import Cell from "./Cell/Cell";
 import Header from "./Header/Header";
 import MobileHeader from "./MobileHeader/MobileHeader";
 function Calendar({ date }) {
-  var rows = [1, 2, 3, 4, 5, 6];
-  var cols = [1, 2, 3, 4, 5, 6, 7];
   let lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 1);
   let startingDate = new Date(
     new Date(date).setDate(date.getDate() - toPreviousMondayDays(date))
   );
-  rows.length = numOfWeeksFromTo(startingDate, lastDay);
+  let cols = new Array(daysInWeek)
+    .fill(undefined)
+    .map((value, index) => (value = index));
+  let rows = new Array(numOfWeeksFromTo(startingDate, lastDay))
+    .fill(undefined)
+    .map((value, index) => (value = index));
   return (
     <table className="month-table">
       <tbody>

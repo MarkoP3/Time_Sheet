@@ -3,7 +3,6 @@ import "./Assets/css/style.css";
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import ForgotPasswordScreen from "./Components/ForgotPasswordScreen/ForgotPasswordScreen";
 import LoginScreen from "./Components/LoginScreen/LoginScreen";
-import Clients from "./Components/IndexScreen/Clients/Clients";
 import Projects from "./Components/IndexScreen/Projects/Projects";
 import Categories from "./Components/IndexScreen/Categories/Categories";
 import Header from "./Components/IndexScreen/Header/Header";
@@ -12,32 +11,9 @@ import TeamMembers from "./Components/IndexScreen/TeamMembers/TeamMembers";
 import Reports from "./Components/IndexScreen/Reports/Reports";
 import Footer from "./Components/IndexScreen/Footer/Footer";
 import DaySheet from "./Components/IndexScreen/DaySheet/DaySheet";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import ClientsContainer from "./Containers/Clients/ClientsContainer";
 function App() {
-  const [clients, setclients] = useState([
-    {
-      name: "Meron",
-      address: "Perina 1",
-      city: "Subotica",
-      postal: "24000",
-      country: "Serbia",
-    },
-    {
-      name: "Maron",
-      address: "Perina 1",
-      city: "Subotica",
-      postal: "24000",
-      country: "Serbia",
-    },
-    {
-      name: "Pero",
-      address: "Perina 1",
-      city: "Subotica",
-      postal: "24000",
-      country: "Serbia",
-    },
-  ]);
-  const [filteredClients, setfilteredClients] = useState([...clients]);
   const [projects, setprojects] = useState([
     {
       name: "P1",
@@ -57,15 +33,7 @@ function App() {
       role: "Worker",
     },
   ]);
-  function filterClientByLetter(letter) {
-    setfilteredClients(
-      clients.filter((value) => value.name[0].toLowerCase().includes(letter))
-    );
-  }
 
-  /*useEffect(() => {
-    setfilteredClients(filterClients())
-  }, clients)*/
   return (
     <div className="container">
       <Router>
@@ -76,7 +44,7 @@ function App() {
           <Route path="/login">
             <LoginScreen></LoginScreen>
           </Route>
-          <Route path="/timesheet/days/:year/:month/:day">
+          <Route path="/timesheet/:year/:month/:day">
             <Header></Header>
             <DaySheet></DaySheet>
             <Footer></Footer>
@@ -91,10 +59,7 @@ function App() {
           </Route>
           <Route path="/clients">
             <Header></Header>
-            <Clients
-              clients={filteredClients}
-              filterClientByLetter={filterClientByLetter}
-            ></Clients>
+            <ClientsContainer></ClientsContainer>
             <Footer></Footer>
           </Route>
           <Route path="/projects">

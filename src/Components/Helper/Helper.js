@@ -32,27 +32,66 @@ export let days = [
   "SATURDAY",
   "SUNDAY",
 ];
+export let alphabet = [
+  "a",
+  "b",
+  "c",
+  "d",
+  "e",
+  "f",
+  "g",
+  "h",
+  "i",
+  "j",
+  "k",
+  "l",
+  "m",
+  "n",
+  "o",
+  "p",
+  "q",
+  "r",
+  "s",
+  "t",
+  "u",
+  "v",
+  "w",
+  "x",
+  "y",
+  "z",
+];
+
 export function getWeek(date) {
   var onejan = new Date(date.getFullYear(), 0, 1);
-  return Math.ceil(((date - onejan) / milisecondsPerDay + onejan.getDay()) / daysInWeek);
+  onejan = new Date(
+    onejan.setDate(
+      onejan.getDate() -
+        ((onejan.getDay() == 0 ? daysInWeek : onejan.getDay()) - 1)
+    )
+  );
+  return Math.ceil(
+    ((date - onejan) / milisecondsPerDay + onejan.getDay()) / daysInWeek
+  );
 }
-export function getWeekOfDates(date1,date2)
-{
-  return (date1.getFullYear()==date2.getFullYear()?getWeek(date1):`${getWeek(date1)}/${getWeek(date2)}`)
+export function getWeekOfDates(date1, date2) {
+  return date1.getFullYear() == date2.getFullYear()
+    ? getWeek(date1)
+    : `${getWeek(date1)}/${getWeek(date2)}`;
 }
-export function generateDaysUrl(date)
-{
-  return `/timesheet/days/${date.getFullYear()}/${date.getMonth()+1}/${date.getDate()}`;
+export function generateDaysUrl(date) {
+  return `/timesheet/${date.getFullYear()}/${
+    date.getMonth() + 1
+  }/${date.getDate()}`;
 }
-export function nextWeek(date)
-{
+export function nextWeek(date) {
   return new Date(new Date(date).setDate(date.getDate() + 7));
 }
-export function prevWeek(date)
-{
+export function prevWeek(date) {
   return new Date(new Date(date).setDate(date.getDate() - 7));
 }
-export function getYearOfDates(date1,date2)
-{
-  return (date1.getFullYear()==date2.getFullYear()?date2.getFullYear():`${date1.getFullYear()}/${date2.getFullYear()}`)
+export function getYearOfDates(date1, date2) {
+  return date1.getFullYear() == date2.getFullYear()
+    ? date2.getFullYear()
+    : `${date1.getFullYear()}/${date2.getFullYear()}`;
 }
+export let recordPerPage=3;

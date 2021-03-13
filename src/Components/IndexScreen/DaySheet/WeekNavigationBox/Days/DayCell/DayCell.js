@@ -1,9 +1,7 @@
 import React from "react";
 import {Link} from 'react-router-dom';
-function generateDaysUrl(date)
-{
-  return `/timesheet/days/${date.getFullYear()}/${date.getMonth()+1}/${date.getDate()}`;
-}
+import { generateDaysUrl } from "../../../../../Helper/Helper";
+
 function DayCell({ date, active }) {
   return (
     <li className={active}>

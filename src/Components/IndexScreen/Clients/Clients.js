@@ -5,32 +5,18 @@ import Title from "../../Common/Title/Title";
 import ClientSearchAndAdd from "./ClientSearchAndAdd/ClientSearchAndAdd";
 import List from "./List/List";
 
-function Clients({ clients, filterClientByLetter }) {
-  const [activeFilterLetter, setactiveFilterLetter] = useState("");
-  console.log();
-  const [containingClientLetters, setcontainingClientLetters] = useState([
-    ...clients
-      .map((client) => client.name[0].toLowerCase())
-      .filter((value, index, item) => {
-        return item.indexOf(value) === index;
-      }),
-  ]);
-  function changeFilterLetter(letter) {
-    setactiveFilterLetter(letter);
-  }
+function Clients({url,numberOfPages,pageNumber, filteredClients,activeFilterLetter,containingClientLetters,changeFilterClientsText }) {
   return (
     <div className="wrapper">
       <section className="content">
         <Title title="Clients"></Title>
-        <ClientSearchAndAdd></ClientSearchAndAdd>
+        <ClientSearchAndAdd changeFilterClientsText={changeFilterClientsText}></ClientSearchAndAdd>
         <Alpha
           containingLetters={containingClientLetters}
           activeLetter={activeFilterLetter}
-          changeActive={changeFilterLetter}
-          filter={filterClientByLetter}
         ></Alpha>
-        <List clients={clients}></List>
-        <Pagination></Pagination>
+        <List clients={filteredClients}></List>
+        <Pagination url={url} numberOfPages={numberOfPages} pageNumber={pageNumber}></Pagination>
       </section>
     </div>
   );

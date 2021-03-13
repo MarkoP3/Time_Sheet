@@ -1,22 +1,18 @@
 import React from "react";
-
-function Letter({ letter, letterStyle, changeActive, filter }) {
-  return (
-    <li className={letterStyle}>
-      <a
+import { Link } from "react-router-dom";
+/*
+    <a
         href="javascript:;"
-        onClick={(e) => {
-          if (letterStyle == "") {
-            changeActive(letter);
-            filter(letter);
-          } else {
-            changeActive("");
-            filter("");
-          }
-        }}
+        onClick={(e) => changeActive()}
       >
         {letter}
       </a>
+*/
+function Letter({ letter, letterStyle, activeMeURL,changeActive }) {
+  return (
+    <li className={letterStyle}>
+
+ <Link to={activeMeURL}>{letter}</Link>
     </li>
   );
 }

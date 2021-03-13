@@ -1,21 +1,16 @@
 import React from "react";
-
-function Pagination() {
+import { Next } from "react-bootstrap/esm/PageItem";
+import Number from "./Number/Number";
+function Pagination({numberOfPages,pageNumber,url}) {
+  let numbers = new Array(numberOfPages).fill(undefined).map((val, idx) => idx+1);
+  console.log('numbers', numbers)
   return (
     <div className="pagination">
       <ul>
-        <li>
-          <a href="javascript:;">1</a>
-        </li>
-        <li>
-          <a href="javascript:;">2</a>
-        </li>
-        <li>
-          <a href="javascript:;">3</a>
-        </li>
-        <li className="last">
-          <a href="javascript:;">Next</a>
-        </li>
+        {numbers.map(value=>{
+          return <Number url={`${url}${(value)}`} pageNumber={value}></Number>
+        })}
+        <Next url={`${url}${(pageNumber+1>=numberOfPages?1:pageNumber+2)}`}></Next>
       </ul>
     </div>
   );
