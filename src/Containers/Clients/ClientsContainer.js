@@ -1,68 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 import { recordPerPage } from "../../Components/Helper/Helper";
 import Clients from "../../Components/IndexScreen/Clients/Clients";
 
-function ClientsContainer() {
+function ClientsContainer({clients,countries}) {
+  const history = useHistory();
   const filterParams = new URLSearchParams(useLocation().search);
-  const [clients, setclients] = useState([
-    {
-      name: "Aron",
-      address: "Perina 1",
-      city: "Novi Sad",
-      postal: "21000",
-      country: "Serbia",
-    },
-    {
-      name: "Baron",
-      address: "Perina 1",
-      city: "Novi Sad",
-      postal: "21000",
-      country: "Serbia",
-    },
-    {
-      name: "Caron",
-      address: "Perina 1",
-      city: "Novi Sad",
-      postal: "21000",
-      country: "Serbia",
-    },
-    {
-      name: "Daron",
-      address: "Perina 1",
-      city: "Novi Sad",
-      postal: "21000",
-      country: "Serbia",
-    },
-    {
-      name: "Eron",
-      address: "Perina 1",
-      city: "Novi Sad",
-      postal: "21000",
-      country: "Serbia",
-    },
-    {
-      name: "Feron",
-      address: "Perina 1",
-      city: "Novi Sad",
-      postal: "21000",
-      country: "Serbia",
-    },
-    {
-      name: "Geron",
-      address: "Perina 1",
-      city: "Subotica",
-      postal: "24000",
-      country: "Serbia",
-    },
-    {
-      name: "Peron",
-      address: "Perina 1",
-      city: "Subotica",
-      postal: "24000",
-      country: "Serbia",
-    },
-  ]);
   const [containingClientLetters, setcontainingClientLetters] = useState([
     ...clients
       .map((client) => client.name[0].toLowerCase())
@@ -87,18 +30,18 @@ function ClientsContainer() {
     )
   );
   const [filterClientsText, setfilterClientsText] = useState(
-    /*filterParams.has("filterText") ? filterParams.get("filterText") : ""*/ ""
+    filterParams.has("filterText") ? filterParams.get("filterText") : ""
   );
-  console.log("filteredClients", filteredClients);
-  console.log("filteredClientsOnPage", filteredClientsOnPage);
   function changeFilterLetter(letter) {
     setactiveFilterLetter(letter);
   }
   function changeFilterClientsText(text) {
-    setfilterClientsText(text);
+    history.push(
+      `clients?filterText=${text}`
+    );
   }
   useEffect(() => {
-    filterClientByFirstNameLetter(activeFilterLetter);
+    filterClients();
   }, [activeFilterLetter]);
   useEffect(() => {
     setFilteredClientsOnPage(
@@ -118,7 +61,7 @@ function ClientsContainer() {
     setNumberOfPages(Math.ceil(filteredClients.length / recordPerPage));
   }, [filteredClients]);
   useEffect(() => {
-    filterClientsByText(filterClientsText);
+    filterClients();
   }, [filterClientsText]);
   useEffect(() => {
     setactiveFilterLetter(
@@ -127,28 +70,38 @@ function ClientsContainer() {
     setpageNumber(
       filterParams.has("pageNumber") ? filterParams.get("pageNumber") - 1 : 0
     );
+    setfilterClientsText(
+      filterParams.has("filterText") ? filterParams.get("filterText") : ""
+    );
   }, [filterParams]);
-  function filterClientsByText(text) {
+  function filterClients()
+  {
+    if(filterParams.has('firstLetter'))
+    {
+    setfilteredClients(
+      clients.filter((value) => value.name[0].toLowerCase().includes(activeFilterLetter))
+    );
+    }
+    else if(filterParams.has('filterText'))
     setfilteredClients(
       clients.filter((client) => {
         for (const [key, value] of Object.entries(client)) {
-          if (value.includes(text)) return true;
+          if (String(value).includes(filterClientsText)) return true;
         }
         return false;
       })
     );
-  }
-  function filterClientByFirstNameLetter(letter) {
-    setfilteredClients(
-      clients.filter((value) => value.name[0].toLowerCase().includes(letter))
-    );
+    else
+    setfilteredClients(clients);
   }
   return (
     <Clients
-      url={`/clients?firstLetter=${activeFilterLetter}&pageNumber=`}
+      countries={countries}
+      url={`/clients`}
       numberOfPages={numberOfPages}
       pageNumber={pageNumber}
       filteredClients={filteredClientsOnPage}
+      filterText={filterClientsText}
       containingClientLetters={containingClientLetters}
       activeFilterLetter={activeFilterLetter}
       changeFilterClientsText={changeFilterClientsText}

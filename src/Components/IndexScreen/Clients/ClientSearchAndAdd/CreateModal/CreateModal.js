@@ -2,7 +2,7 @@ import React from "react";
 import FancySides from "../../../../Common/FancySides/FancySides";
 import Form from "./Form/Form";
 
-function CreateModal({ displayValue, changeDisplayModal }) {
+function CreateModal({countries, displayValue, changeDisplayModal }) {
   return (
     <div
       id="fancybox-wrap"
@@ -16,7 +16,7 @@ function CreateModal({ displayValue, changeDisplayModal }) {
     >
       <div id="fancybox-outer">
         <FancySides></FancySides>
-        <Form></Form>
+        <Form countries={countries}></Form>
       </div>
       <a
         onClick={(e) => changeDisplayModal("none")}

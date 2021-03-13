@@ -1,11 +1,11 @@
 import React from "react";
 
-function Heading({ toggleDetails }) {
+function Heading({ toggleDetails,project }) {
   return (
     <div className="heading" onClick={toggleDetails}>
-      <span>BuzzMonitor</span>{" "}
+      <span>{project.name}</span>{" "}
       <span>
-        <em>(Nina Media)</em>
+        <em>({project.customer})</em>
       </span>
       <i>+</i>
     </div>

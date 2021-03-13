@@ -1,7 +1,7 @@
 import React from 'react'
 import Letter from '../../../Components/Common/Alpha/Letter/Letter'
 
-function LetterContainer({ letter,activeLetter,containingLetters }) {
+function LetterContainer({url, letter,activeLetter,containingLetters }) {
 
     return (
         <Letter
@@ -13,7 +13,7 @@ function LetterContainer({ letter,activeLetter,containingLetters }) {
                     : ""
                   : "disabled"
               }
-              activateMeURL={(activeLetter==letter?`/clients`:`/clients?firstLetter=${(containingLetters.includes(letter)?letter:activeLetter)}`)}
+              activateMeURL={(activeLetter==letter?url:`${url}?firstLetter=${(containingLetters.includes(letter)?letter:activeLetter)}`)}
             ></Letter>
     )
 }

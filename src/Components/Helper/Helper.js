@@ -95,3 +95,144 @@ export function getYearOfDates(date1, date2) {
     : `${date1.getFullYear()}/${date2.getFullYear()}`;
 }
 export let recordPerPage=3;
+export let mockClients=[
+  {
+    id:1,
+    name: "Aron",
+    address: "Perina 1",
+    city: "Novi Sad",
+    postal: "21000",
+    country: "Bosnia",
+    countryId:2
+  },
+  {
+    id:2,
+    name: "Baron",
+    address: "Perina 1",
+    city: "Novi Sad",
+    postal: "21000",
+    country: "Serbia",
+    countryId:1
+  },
+  {
+    id:3,
+    name: "Caron",
+    address: "Perina 1",
+    city: "Novi Sad",
+    postal: "21000",
+    country: "Serbia",
+    countryId:1
+  },
+  {
+    id:4,
+    name: "Daron",
+    address: "Perina 1",
+    city: "Novi Sad",
+    postal: "21000",
+    country: "Serbia",
+    countryId:1
+  },
+  {
+    id:5,
+    name: "Eron",
+    address: "Perina 1",
+    city: "Novi Sad",
+    postal: "21000",
+    country: "Serbia",
+    countryId:1
+  },
+  {
+    id:6,
+    name: "Feron",
+    address: "Perina 1",
+    city: "Novi Sad",
+    postal: "21000",
+    country: "Serbia",
+    countryId:1
+  },
+  {
+    id:7,
+    name: "Geron",
+    address: "Perina 1",
+    city: "Subotica",
+    postal: "24000",
+    country: "Serbia",
+    countryId:1
+  },
+  {
+    id:8,
+    name: "Peron",
+    address: "Perina 1",
+    city: "Subotica",
+    postal: "24000",
+    country: "Serbia",
+    countryId:1
+  }
+]
+export let mockProjects=[
+  {
+    id:1,
+    name: "P1",
+    description: "Ovo je neki projekat",
+    lead: "Darko Puzović",
+    customer: "Peron",
+    customerID:8,
+    leadID:2,
+    status: "Inactive",
+  },{
+    id:2,
+    name: "Drugi projekat",
+    description: "Nesto nesto",
+    lead: "Narko Puzović",
+    leadID:3,
+    customer: "Aron",
+    customerID:1,
+    status: "Archive",
+  },{
+    id:3,
+    name: "Treci projekat",
+    description: "Nesto nesto",
+    lead: "Marko Puzović",
+    leadID:1,
+    customer: "Daron",
+    customerID:4,
+    status: "Archive",
+  },{
+    id:4,
+    name: "Drugi projekat",
+    description: "Nesto nesto",
+    lead: "Marko Puzović",
+    leadID:1,
+    customer: "Aron",
+    customerID:1,
+    status: "Archive",
+  }
+]
+export let mockTeamMembers=[
+  {
+    id:1,
+    name: "Marko Puzović",
+    username: "marko123",
+    hoursPerWeek: 40,
+    email: "markopuzovic98@gmail.com",
+    status: "Inactive",
+    role: "Worker"
+  },{
+    id:2,
+    name: "Darko Puzović",
+    username: "marko123",
+    hoursPerWeek: 40,
+    email: "markopuzovic98@gmail.com",
+    status: "Inactive",
+    role: "Worker"
+  },{
+    id:3,
+    name: "Narko Puzović",
+    username: "marko123",
+    hoursPerWeek: 40,
+    email: "markopuzovic98@gmail.com",
+    status: "Inactive",
+    role: "Worker"
+  }
+]
+export let mockCountries=[{id:1,name:"Serbia"},{id:2,name:"Bosnia"}]

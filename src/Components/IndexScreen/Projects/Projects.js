@@ -5,28 +5,45 @@ import Title from "../../Common/Title/Title";
 import List from "./List/List";
 import SearchAndAddBox from "./SearchAndAddBox/SearchAndAddBox";
 
-function Projects() {
-  const [activeFilterLetter, setactiveFilterLetter] = useState("");
-  const [containingProjectLetters, setcontainingProjectLetters] = useState([
-    "e",
-    "d",
-    "w",
-  ]);
-  function changeFilterLetter(letter) {
-    setactiveFilterLetter(letter);
-  }
+function Projects({
+  leaders,
+  customers,
+  url,
+  numberOfPages,
+  pageNumber,
+  filteredProjects,
+  activeFilterLetter,
+  containingProjectLetters,
+  changeFilterProjectsText,
+  filterText,
+}) {
   return (
     <div className="wrapper">
       <section className="content">
         <Title title="Projects"></Title>
-        <SearchAndAddBox></SearchAndAddBox>
+        <SearchAndAddBox
+          changeFilterProjectsText={changeFilterProjectsText}
+          filterText={filterText}
+        ></SearchAndAddBox>
         <Alpha
+          url={url}
           containingLetters={containingProjectLetters}
           activeLetter={activeFilterLetter}
-          changeActive={changeFilterLetter}
         ></Alpha>
-        <List></List>
-        <Pagination></Pagination>
+        <List
+          projects={filteredProjects}
+          leaders={leaders}
+          customers={customers}
+        ></List>
+        <Pagination
+          url={`${url}?${
+            activeFilterLetter == ""
+              ? `filterText=${filterText}&`
+              : `firstLetter=${activeFilterLetter}&`
+          }`}
+          numberOfPages={numberOfPages}
+          pageNumber={pageNumber}
+        ></Pagination>
       </section>
     </div>
   );

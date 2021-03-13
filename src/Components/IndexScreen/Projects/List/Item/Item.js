@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Heading from "./Heading/Heading";
 import Details from "./Details/Details";
 
-function Item() {
+function Item({project,customers,leaders}) {
   const [active, setactive] = useState("none");
   function toggleDetails(e) {
     if (active == "none") setactive("block");
@@ -10,8 +10,8 @@ function Item() {
   }
   return (
     <div className="item">
-      <Heading toggleDetails={toggleDetails}></Heading>
-      <Details active={active}></Details>
+      <Heading toggleDetails={toggleDetails} project={project}></Heading>
+      <Details active={active} project={project} customers={customers} leaders={leaders}></Details>
     </div>
   );
 }

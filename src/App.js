@@ -3,7 +3,7 @@ import "./Assets/css/style.css";
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import ForgotPasswordScreen from "./Components/ForgotPasswordScreen/ForgotPasswordScreen";
 import LoginScreen from "./Components/LoginScreen/LoginScreen";
-import Projects from "./Components/IndexScreen/Projects/Projects";
+import ProjectsContainer from "./Containers/Projects/ProjectsContainer";
 import Categories from "./Components/IndexScreen/Categories/Categories";
 import Header from "./Components/IndexScreen/Header/Header";
 import TimeSheet from "./Components/IndexScreen/TimeSheet/TimeSheet";
@@ -13,26 +13,12 @@ import Footer from "./Components/IndexScreen/Footer/Footer";
 import DaySheet from "./Components/IndexScreen/DaySheet/DaySheet";
 import React, { useState } from "react";
 import ClientsContainer from "./Containers/Clients/ClientsContainer";
+import { mockClients,mockCountries,mockProjects,mockTeamMembers } from "./Components/Helper/Helper";
 function App() {
-  const [projects, setprojects] = useState([
-    {
-      name: "P1",
-      description: "Ovo je neki projekat",
-      lead: "Marko Puzović",
-      customer: "Pero",
-      status: "Inactive",
-    },
-  ]);
-  const [teamMembers, setteamMembers] = useState([
-    {
-      name: "Marko Puzović",
-      username: "marko123",
-      hoursPerWeek: 40,
-      email: "markopuzovic98@gmail.com",
-      status: "Inactive",
-      role: "Worker",
-    },
-  ]);
+  const [clients, setclients] = useState(mockClients);
+  const [projects, setprojects] = useState(mockProjects);
+  const [countries, setcountries] = useState(mockCountries)
+  const [teamMembers, setteamMembers] = useState(mockTeamMembers);
 
   return (
     <div className="container">
@@ -59,12 +45,12 @@ function App() {
           </Route>
           <Route path="/clients">
             <Header></Header>
-            <ClientsContainer></ClientsContainer>
+            <ClientsContainer clients={clients} countries={countries}></ClientsContainer>
             <Footer></Footer>
           </Route>
           <Route path="/projects">
             <Header></Header>
-            <Projects></Projects>
+            <ProjectsContainer projects={projects} leaders={teamMembers} customers={clients}></ProjectsContainer>
             <Footer></Footer>
           </Route>
           <Route path="/categories">

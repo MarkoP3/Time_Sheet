@@ -1,6 +1,6 @@
 import React from "react";
 
-function Form({ client }) {
+function Form({ countries,client }) {
   return (
     <React.Fragment>
       <ul className="form">
@@ -21,7 +21,12 @@ function Form({ client }) {
         <li>
           <label>Country:</label>
           <select>
-            <option>Select country</option>
+            {countries.map(value=>{
+              if(value.name==client.country)
+              return <option selected>{value.name}</option>
+              else
+              return <option>{value.name}</option>
+            })}
           </select>
         </li>
       </ul>

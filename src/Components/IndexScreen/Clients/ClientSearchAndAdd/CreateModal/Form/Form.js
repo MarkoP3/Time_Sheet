@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Form() {
+function Form({countries}) {
     return (
         <div
       id="fancybox-content"
@@ -37,6 +37,9 @@ function Form() {
 								<label>Country:</label>
 								<select>
 									<option>Select country</option>
+									{countries.map(value=>{
+										return <option>{value.name}</option>
+									})}
 								</select>
 							</li>
 						</ul>

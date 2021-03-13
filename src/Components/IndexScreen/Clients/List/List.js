@@ -1,11 +1,11 @@
 import React from "react";
 import Item from "./Item/Item";
 
-function List({clients}) {
+function List({countries,clients}) {
   return (
     <div className="accordion-wrap clients">
       {clients.map((value,index)=>{
-        return <Item client={value}></Item>
+        return <Item countries={countries} client={value}></Item>
       })}
     </div>
   );
