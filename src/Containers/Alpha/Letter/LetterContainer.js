@@ -1,15 +1,8 @@
 import React from 'react'
 import Letter from '../../../Components/Common/Alpha/Letter/Letter'
 
-function LetterContainer({ letter,activeLetter,containingLetters,changeActive }) {
-  function changeActiveLetter()
-  {
-      if (activeLetter != letter) {
-        changeActive(letter);
-      } else {
-        changeActive("");
-      } 
-  }
+function LetterContainer({ letter,activeLetter,containingLetters }) {
+
     return (
         <Letter
               letter={letter}
@@ -20,8 +13,7 @@ function LetterContainer({ letter,activeLetter,containingLetters,changeActive })
                     : ""
                   : "disabled"
               }
-              activeMeURL={(activeLetter==letter?`/clients`:`/clients?firstLetter=${letter}`)}
-              changeActive={changeActiveLetter}
+              activateMeURL={(activeLetter==letter?`/clients`:`/clients?firstLetter=${(containingLetters.includes(letter)?letter:activeLetter)}`)}
             ></Letter>
     )
 }
