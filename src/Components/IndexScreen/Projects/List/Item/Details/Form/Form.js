@@ -4,14 +4,10 @@ function Form({project,leaders,customers}) {
   const active = useRef()
   const inactive = useRef()
   const archive = useRef()
+  let radios={"Inactive":inactive,"Active":active,"Archive":archive};
   useEffect(() => {
-    if(project.status=="Inactive")
-    inactive.current.checked=true;
-    else if(project.status=="Active")
-    active.current.checked=true;
-    else
-    archive.current.checked=true;
-  }, [])
+    radios[project.status].current.checked=true;
+  }, [project])
   return (
     <React.Fragment>
       <ul className="form">
@@ -53,15 +49,15 @@ function Form({project,leaders,customers}) {
           <label>Status:</label>
           <span className="radio">
             <label for="inactive">Active:</label>
-            <input ref={active} type="radio" value="1" name={`status${project.name}`} id="inactive" />
+            <input ref={active} type="radio" value="1" name={`status${project.id}`} id="inactive" />
           </span>
           <span className="radio">
             <label for="active">Inactive:</label>
-            <input ref={inactive} type="radio" value="2" name={`status${project.name}`} id="active"/>
+            <input ref={inactive} type="radio" value="2" name={`status${project.id}`} id="active"/>
           </span>
           <span className="radio">
             <label for="active">Archive:</label>
-            <input ref={archive} type="radio" value="3" name={`status${project.name}`} id="active"/>
+            <input ref={archive} type="radio" value="3" name={`status${project.id}`} id="active"/>
           </span>
         </li>
       </ul>

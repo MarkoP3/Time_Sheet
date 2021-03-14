@@ -199,7 +199,7 @@ export let mockProjects=[
     status: "Archive",
   },{
     id:4,
-    name: "Drugi projekat",
+    name: "Cetvrti projekat",
     description: "Nesto nesto",
     lead: "Marko Puzović",
     leadID:1,
