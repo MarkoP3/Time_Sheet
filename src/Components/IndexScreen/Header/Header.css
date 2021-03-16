@@ -1,0 +1,3 @@
+.user li:hover > .user-menu,.invisible{
+    display: block !important;;
+}

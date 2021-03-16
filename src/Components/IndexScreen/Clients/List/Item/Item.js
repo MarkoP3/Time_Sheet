@@ -9,7 +9,7 @@ function Item({countries, client }) {
     else setactive("none");
   }
   return (
-    <div className="item">
+    <div className={`item${(active=="none"?"":" open")}`}>
       <Heading toggleDetails={toggleDetails} name={client?.name}></Heading>
       <Details countries={countries} client={client} active={active}></Details>
     </div>

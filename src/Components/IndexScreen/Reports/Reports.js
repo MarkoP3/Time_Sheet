@@ -1,6 +1,7 @@
 import React from "react";
 import Title from "../../Common/Title/Title";
 import TotalBar from "../../Common/TotalBar/TotalBar";
+import ExportButtons from "./ExportButtons/ExportButtons";
 import ReportFilterField from "./ReportFilterField/ReportFilterField";
 import ReportTable from "./ReportTable/ReportTable";
 
@@ -12,6 +13,7 @@ function Reports() {
         <ReportFilterField></ReportFilterField>
         <ReportTable></ReportTable>
         <TotalBar total="90" text="Report total"></TotalBar>
+        <ExportButtons></ExportButtons>
       </section>
     </div>
   );

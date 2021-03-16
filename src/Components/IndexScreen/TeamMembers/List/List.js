@@ -1,11 +1,15 @@
 import React from "react";
 import Item from "./Item/Item";
 
-function List() {
+function List({teamMembers}) {
+  console.log(`teamMembers`, teamMembers)
   return (
     <div className="accordion-wrap">
-      <Item></Item>
-      <Item></Item>
+      {teamMembers.map(value=>{
+        return <Item member={value}></Item>
+      })
+
+      }
     </div>
   );
 }

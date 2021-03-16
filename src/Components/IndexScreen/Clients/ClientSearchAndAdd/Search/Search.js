@@ -4,7 +4,7 @@ function Search({changeFilterClientsText,filterText}) {
   const search = useRef("")
   return (
     <div className="search-page">
-      <input ref={search} type="search" name="search-clients" className="in-search" onChange={(e)=>changeFilterClientsText(search.current.value)} value={filterText} />
+      <input ref={search} type="search" name="search-clients" className="in-search" onKeyUp={(e)=>changeFilterClientsText(search.current.value)} />
     </div>
   );
 }

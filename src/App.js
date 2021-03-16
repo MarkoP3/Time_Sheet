@@ -1,6 +1,11 @@
 import "./App.css";
 import "./Assets/css/style.css";
-import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 import ForgotPasswordScreen from "./Components/ForgotPasswordScreen/ForgotPasswordScreen";
 import LoginScreen from "./Components/LoginScreen/LoginScreen";
 import ProjectsContainer from "./Containers/Projects/ProjectsContainer";
@@ -13,13 +18,14 @@ import Footer from "./Components/IndexScreen/Footer/Footer";
 import DaySheet from "./Components/IndexScreen/DaySheet/DaySheet";
 import React, { useState } from "react";
 import ClientsContainer from "./Containers/Clients/ClientsContainer";
-import { mockClients,mockCountries,mockProjects,mockTeamMembers } from "./Components/Helper/Helper";
+import {
+  mockClients,
+  mockCountries,
+  mockProjects,
+  mockTeamMembers,
+} from "./Components/Helper/Helper";
+import TeamMembersContainer from "./Containers/TeamMembers/TeamMembersContainer";
 function App() {
-  const [clients, setclients] = useState(mockClients);
-  const [projects, setprojects] = useState(mockProjects);
-  const [countries, setcountries] = useState(mockCountries)
-  const [teamMembers, setteamMembers] = useState(mockTeamMembers);
-
   return (
     <div className="container">
       <Router>
@@ -41,16 +47,20 @@ function App() {
             <Footer></Footer>
           </Route>
           <Route path="/timesheet">
-            <Redirect to={`/timesheet/${new Date().getFullYear()}/${new Date().getMonth()+1}`}></Redirect>
+            <Redirect
+              to={`/timesheet/${new Date().getFullYear()}/${
+                new Date().getMonth() + 1
+              }`}
+            ></Redirect>
           </Route>
           <Route path="/clients">
             <Header></Header>
-            <ClientsContainer clients={clients} countries={countries}></ClientsContainer>
+            <ClientsContainer></ClientsContainer>
             <Footer></Footer>
           </Route>
           <Route path="/projects">
             <Header></Header>
-            <ProjectsContainer projects={projects} leaders={teamMembers} customers={clients}></ProjectsContainer>
+            <ProjectsContainer></ProjectsContainer>
             <Footer></Footer>
           </Route>
           <Route path="/categories">
@@ -60,7 +70,7 @@ function App() {
           </Route>
           <Route path="/teamMembers">
             <Header></Header>
-            <TeamMembers></TeamMembers>
+            <TeamMembersContainer></TeamMembersContainer>
             <Footer></Footer>
           </Route>
           <Route path="/reports">
@@ -69,7 +79,11 @@ function App() {
             <Footer></Footer>
           </Route>
           <Route path="/">
-            <Redirect to={`/timesheet/${new Date().getFullYear()}/${new Date().getMonth()+1}`}></Redirect>
+            <Redirect
+              to={`/timesheet/${new Date().getFullYear()}/${
+                new Date().getMonth() + 1
+              }`}
+            ></Redirect>
           </Route>
         </Switch>
       </Router>

@@ -1,65 +1,57 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useHistory } from "react-router-dom";
-import { recordPerPage } from "../../Components/Helper/Helper";
+import {
+  getFirstLetters,
+  getPageRows
+} from "../../Components/Helper/Helper";
 import Projects from "../../Components/IndexScreen/Projects/Projects";
 
-function ProjectsContainer({ projects, leaders, customers }) {
+function ProjectsContainer() {
+  //#region variables
   const history = useHistory();
   const filterParams = new URLSearchParams(useLocation().search);
-  const [containingProjectLetters, setcontainingProjectLetters] = useState([
-    ...projects
-      .map((project) => project.name[0].toLowerCase())
-      .filter((value, index, item) => {
-        return item.indexOf(value) === index;
-      }),
-  ]);
-  const [filteredProjects, setfilteredProjects] = useState([...projects]);
-  const [activeFilterLetter, setactiveFilterLetter] = useState(
-    filterParams.has("firstLetter") ? filterParams.get("firstLetter") : ""
-  );
+  const leaders = getPageRows(-1, "", "", "/teamMembers");
+  const customers = getPageRows(-1, "", "", "/clients");
+  //#endregion
   const [pageNumber, setpageNumber] = useState(
-    filterParams.has("firstLetter") ? filterParams.get("firstLetter") - 1 : 0
+    filterParams.has("pageNumber") ? filterParams.get("pageNumber") - 1 : 0
   );
-  const [numberOfPages, setNumberOfPages] = useState(
-    Math.ceil(filteredProjects.length / recordPerPage)
-  );
-  const [filteredProjectsOnPage, setFilteredProjectsOnPage] = useState(
-    filteredProjects.slice(
-      pageNumber * recordPerPage,
-      pageNumber * recordPerPage + recordPerPage
-    )
-  );
+
   const [filterProjectsText, setfilterProjectsText] = useState(
     filterParams.has("filterText") ? filterParams.get("filterText") : ""
   );
-  console.log("filteredProjects", filteredProjects);
-  console.log("filteredProjectsOnPage", filteredProjectsOnPage);
+  let searchTimeout;
   function changeFilterProjectsText(text) {
-    history.push(`projects?filterText=${text}`);
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(
+      () => history.push(`projects?filterText=${text}`),
+      500
+    );
   }
+  const [activeFilterLetter, setactiveFilterLetter] = useState(
+    filterParams.has("firstLetter") ? filterParams.get("firstLetter") : ""
+  );
+  const [projects, setprojects] = useState(
+    getPageRows(
+      pageNumber,
+      activeFilterLetter,
+      filterProjectsText,
+      window.location.pathname
+    )
+  );
+  const [containingProjectLetters, setcontainingProjectLetters] = useState(
+    getFirstLetters(window.location.pathname)
+  );
   useEffect(() => {
-    filterProjects();
-  }, [activeFilterLetter]);
-  useEffect(() => {
-    setFilteredProjectsOnPage(
-      filteredProjects.slice(
-        pageNumber * recordPerPage,
-        pageNumber * recordPerPage + recordPerPage
+    setprojects(
+      getPageRows(
+        pageNumber,
+        activeFilterLetter,
+        filterProjectsText,
+        window.location.pathname
       )
     );
-  }, [pageNumber]);
-  useEffect(() => {
-    setFilteredProjectsOnPage(
-      filteredProjects.slice(
-        pageNumber * recordPerPage,
-        pageNumber * recordPerPage + recordPerPage
-      )
-    );
-    setNumberOfPages(Math.ceil(filteredProjects.length / recordPerPage));
-  }, [filteredProjects]);
-  useEffect(() => {
-    filterProjects();
-  }, [filterProjectsText]);
+  }, [filterProjectsText, activeFilterLetter, pageNumber]);
   useEffect(() => {
     setactiveFilterLetter(
       filterParams.has("firstLetter") ? filterParams.get("firstLetter") : ""
@@ -71,32 +63,11 @@ function ProjectsContainer({ projects, leaders, customers }) {
       filterParams.has("filterText") ? filterParams.get("filterText") : ""
     );
   }, [filterParams]);
-  function filterProjects() {
-    if (filterParams.has("firstLetter")) {
-      setfilteredProjects(
-        projects.filter((value) =>
-          value.name[0].toLowerCase().includes(activeFilterLetter)
-        )
-      );
-    } else if (filterParams.has("filterText"))
-      setfilteredProjects(
-        projects.filter((project) => {
-          for (const [key, value] of Object.entries(project)) {
-            if (String(value).includes(filterProjectsText)) return true;
-          }
-          return false;
-        })
-      );
-    else setfilteredProjects(projects);
-  }
   return (
     <Projects
       leaders={leaders}
       customers={customers}
-      url={`/projects`}
-      numberOfPages={numberOfPages}
-      pageNumber={pageNumber}
-      filteredProjects={filteredProjectsOnPage}
+      filteredProjects={projects}
       containingProjectLetters={containingProjectLetters}
       filterText={filterProjectsText}
       activeFilterLetter={activeFilterLetter}

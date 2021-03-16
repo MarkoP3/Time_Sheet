@@ -1,9 +1,9 @@
 import React from "react";
 
-function Heading({ toggleDetails }) {
+function Heading({ toggleDetails,member }) {
   return (
     <div className="heading" onClick={toggleDetails}>
-      <span>Sladjana Miljanovic</span>
+      <span>{member.name}</span>
       <i>+</i>
     </div>
   );

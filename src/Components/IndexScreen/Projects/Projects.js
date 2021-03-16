@@ -8,14 +8,10 @@ import SearchAndAddBox from "./SearchAndAddBox/SearchAndAddBox";
 function Projects({
   leaders,
   customers,
-  url,
-  numberOfPages,
-  pageNumber,
   filteredProjects,
   activeFilterLetter,
   containingProjectLetters,
   changeFilterProjectsText,
-  filterText,
 }) {
   return (
     <div className="wrapper">
@@ -23,10 +19,8 @@ function Projects({
         <Title title="Projects"></Title>
         <SearchAndAddBox
           changeFilterProjectsText={changeFilterProjectsText}
-          filterText={filterText}
         ></SearchAndAddBox>
         <Alpha
-          url={url}
           containingLetters={containingProjectLetters}
           activeLetter={activeFilterLetter}
         ></Alpha>
@@ -35,15 +29,7 @@ function Projects({
           leaders={leaders}
           customers={customers}
         ></List>
-        <Pagination
-          url={`${url}?${
-            activeFilterLetter == ""
-              ? `filterText=${filterText}&`
-              : `firstLetter=${activeFilterLetter}&`
-          }`}
-          numberOfPages={numberOfPages}
-          pageNumber={pageNumber}
-        ></Pagination>
+        <Pagination></Pagination>
       </section>
     </div>
   );
