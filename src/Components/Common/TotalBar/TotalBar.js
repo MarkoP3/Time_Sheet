@@ -6,7 +6,7 @@ function TotalBar({ text, total, isDailySheet }) {
     let url = window.location.pathname.split("/");
     if (isDailySheet != undefined) {
       return (
-        <NavLink to={`/timesheet/${url[3]}/${url[4]}`}>
+        <NavLink to={`/timesheet/${url[2]}/${url[3]}`}>
           <i></i>back to monthly view
         </NavLink>
       );

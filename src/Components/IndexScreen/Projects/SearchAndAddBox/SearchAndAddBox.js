@@ -4,7 +4,12 @@ import Search from "./Search/Search";
 import ModalBack from "../../../Common/ModalBack/ModalBack";
 import CreateModal from "./CreateModal/CreateModal";
 
-function SearchAndAddBox({changeFilterProjectsText}) {
+function SearchAndAddBox({
+  leaders,
+  customers,
+  addProjectHandler,
+  changeFilterProjectsText,
+}) {
   const [modalDisplay, setmodalDisplay] = useState("none");
   function changeDisplayModalVal(displayVal) {
     setmodalDisplay(displayVal);
@@ -13,8 +18,18 @@ function SearchAndAddBox({changeFilterProjectsText}) {
     <div className="grey-box-wrap reports">
       <Add changeModalDisplay={changeDisplayModalVal}></Add>
       <Search changeFilterProjectsText={changeFilterProjectsText}></Search>
-      <ModalBack displayValue={modalDisplay} changeDisplay={changeDisplayModalVal}></ModalBack>
-      <CreateModal displayValue={modalDisplay} changeDisplayModal={changeDisplayModalVal}></CreateModal>
+      <ModalBack
+        displayValue={modalDisplay}
+        changeDisplay={changeDisplayModalVal}
+      ></ModalBack>
+
+      <CreateModal
+        leaders={leaders}
+        customers={customers}
+        addProjectHandler={addProjectHandler}
+        displayValue={modalDisplay}
+        changeDisplayModal={changeDisplayModalVal}
+      ></CreateModal>
     </div>
   );
 }

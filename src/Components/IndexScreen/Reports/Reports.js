@@ -5,14 +5,28 @@ import ExportButtons from "./ExportButtons/ExportButtons";
 import ReportFilterField from "./ReportFilterField/ReportFilterField";
 import ReportTable from "./ReportTable/ReportTable";
 
-function Reports() {
+function Reports({
+  total,
+  clients,
+  teamMembers,
+  timesheet,
+  projects,
+  categories,
+  clientSelectionHandler,
+}) {
   return (
     <div className="wrapper">
       <section className="content">
         <Title title="Reports"></Title>
-        <ReportFilterField></ReportFilterField>
-        <ReportTable></ReportTable>
-        <TotalBar total="90" text="Report total"></TotalBar>
+        <ReportFilterField
+          clients={clients}
+          projects={projects}
+          categories={categories}
+          teamMembers={teamMembers}
+          clientSelectionHandler={clientSelectionHandler}
+        ></ReportFilterField>
+        <ReportTable timesheet={timesheet}></ReportTable>
+        <TotalBar total={total} text="Report total"></TotalBar>
         <ExportButtons></ExportButtons>
       </section>
     </div>

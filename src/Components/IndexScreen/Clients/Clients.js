@@ -5,18 +5,17 @@ import Title from "../../Common/Title/Title";
 import ClientSearchAndAdd from "./ClientSearchAndAdd/ClientSearchAndAdd";
 import List from "./List/List";
 
-function Clients({countries, filteredClients,activeFilterLetter,filterText,containingClientLetters,changeFilterClientsText }) {
+function Clients({pageNumber,numberOfPages,activeLetter,containingLetters,countries, filteredClients,filterText,addClientHandler,updateClientHandler,deleteClientHandler,changeFilterClientsText }) {
   return (
     <div className="wrapper">
       <section className="content">
         <Title title="Clients"></Title>
-        <ClientSearchAndAdd countries={countries} changeFilterClientsText={changeFilterClientsText} filterText={filterText}></ClientSearchAndAdd>
-        <Alpha
-          containingLetters={containingClientLetters}
-          activeLetter={activeFilterLetter}
+        <ClientSearchAndAdd addClientHandler={addClientHandler} countries={countries} changeFilterClientsText={changeFilterClientsText} filterText={filterText}></ClientSearchAndAdd>
+        <Alpha activeLetter={activeLetter}
+        containingLetters={containingLetters}
         ></Alpha>
-        <List countries={countries} clients={filteredClients}></List>
-        <Pagination></Pagination>
+        <List updateClientHandler={updateClientHandler} deleteClientHandler={deleteClientHandler} countries={countries} clients={filteredClients}></List>
+        <Pagination activeFilterLetter={activeLetter} pageNumber={pageNumber} filterText={filterText} numberOfPages={numberOfPages}></Pagination>
       </section>
     </div>
   );

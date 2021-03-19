@@ -1,8 +1,8 @@
 import React from "react";
 
-function Heading({ toggleDetails,project }) {
+function Heading({ handleHeadingClick,project }) {
   return (
-    <div className="heading" onClick={toggleDetails}>
+    <div className="heading" onClick={handleHeadingClick}>
       <span>{project.name}</span>{" "}
       <span>
         <em>({project.customer})</em>

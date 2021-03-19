@@ -4,7 +4,7 @@ import Add from "./Add/Add";
 import CreateModal from "./CreateModal/CreateModal";
 import Search from "./Search/Search";
 
-function ClientSearchAndAdd({countries,changeFilterClientsText,filterText}) {
+function ClientSearchAndAdd({addClientHandler,countries,changeFilterClientsText,filterText}) {
   const [modalDisplay, setmodalDisplay] = useState("none");
   function changeDisplayModalVal(displayVal) {
     setmodalDisplay(displayVal);
@@ -17,7 +17,7 @@ function ClientSearchAndAdd({countries,changeFilterClientsText,filterText}) {
         displayValue={modalDisplay}
         changeDisplay={changeDisplayModalVal}
       ></ModalBack>
-      <CreateModal countries={countries}
+      <CreateModal addClientHandler={addClientHandler} countries={countries}
         displayValue={modalDisplay}
         changeDisplayModal={changeDisplayModalVal}
       ></CreateModal>

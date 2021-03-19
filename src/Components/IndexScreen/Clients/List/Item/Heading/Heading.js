@@ -1,8 +1,8 @@
 import React from "react";
 
-function Heading({ toggleDetails , name }) {
+function Heading({ handleHeadingClick , name }) {
   return (
-    <div className="heading" onClick={toggleDetails}>
+    <div className="heading" onClick={handleHeadingClick}>
       <span>{name}</span>
       <i>+</i>
     </div>

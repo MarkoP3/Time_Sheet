@@ -12,19 +12,12 @@ import ProjectsContainer from "./Containers/Projects/ProjectsContainer";
 import Categories from "./Components/IndexScreen/Categories/Categories";
 import Header from "./Components/IndexScreen/Header/Header";
 import TimeSheet from "./Components/IndexScreen/TimeSheet/TimeSheet";
-import TeamMembers from "./Components/IndexScreen/TeamMembers/TeamMembers";
 import Reports from "./Components/IndexScreen/Reports/Reports";
 import Footer from "./Components/IndexScreen/Footer/Footer";
 import DaySheet from "./Components/IndexScreen/DaySheet/DaySheet";
-import React, { useState } from "react";
 import ClientsContainer from "./Containers/Clients/ClientsContainer";
-import {
-  mockClients,
-  mockCountries,
-  mockProjects,
-  mockTeamMembers,
-} from "./Components/Helper/Helper";
 import TeamMembersContainer from "./Containers/TeamMembers/TeamMembersContainer";
+import ReportsContainer from "./Containers/ReportsContainer/ReportsContainer";
 function App() {
   return (
     <div className="container">
@@ -75,7 +68,7 @@ function App() {
           </Route>
           <Route path="/reports">
             <Header></Header>
-            <Reports></Reports>
+            <ReportsContainer></ReportsContainer>
             <Footer></Footer>
           </Route>
           <Route path="/">

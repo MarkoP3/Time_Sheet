@@ -12,24 +12,31 @@ function Projects({
   activeFilterLetter,
   containingProjectLetters,
   changeFilterProjectsText,
+  pageNumber,
+  numberOfPages,
+  filterText,
+  addProjectHandler,
+  deleteProjectHandler,
+  updateProjectHandler
 }) {
   return (
     <div className="wrapper">
       <section className="content">
         <Title title="Projects"></Title>
-        <SearchAndAddBox
+        <SearchAndAddBox customers={customers} leaders={leaders} addProjectHandler={addProjectHandler}
           changeFilterProjectsText={changeFilterProjectsText}
         ></SearchAndAddBox>
         <Alpha
           containingLetters={containingProjectLetters}
           activeLetter={activeFilterLetter}
         ></Alpha>
-        <List
+        <List deleteProjectHandler={deleteProjectHandler}
+        updateProjectHandler={updateProjectHandler}
           projects={filteredProjects}
           leaders={leaders}
           customers={customers}
         ></List>
-        <Pagination></Pagination>
+        <Pagination activeFilterLetter={activeFilterLetter} pageNumber={pageNumber} numberOfPages={numberOfPages} filterText={filterText}></Pagination>
       </section>
     </div>
   );

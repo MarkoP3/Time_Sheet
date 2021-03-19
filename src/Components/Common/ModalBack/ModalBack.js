@@ -8,8 +8,9 @@ function ModalBack({ displayValue , changeDisplay }) {
         backgroundColor: "rgb(119, 119, 119)",
         opacity: "0.7",
         cursor: "pointer",
-        height: "722px",
-        display: displayValue ,
+        height: "100%",
+        width:"100%",
+        display: displayValue 
       }}
     ></div>
   );

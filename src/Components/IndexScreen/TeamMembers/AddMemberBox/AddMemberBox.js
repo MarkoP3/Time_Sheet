@@ -1,9 +1,9 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import ModalBack from "../../../Common/ModalBack/ModalBack";
 import Add from "./Add/Add";
-import CreateModal from './CreateModal/CreateModal'
+import CreateModal from "./CreateModal/CreateModal";
 
-function AddMemberBox() {
+function AddMemberBox({ addTeamMemberHandler }) {
   const [modalDisplay, setmodalDisplay] = useState("none");
   function changeDisplayModalVal(displayVal) {
     setmodalDisplay(displayVal);
@@ -11,8 +11,15 @@ function AddMemberBox() {
   return (
     <div className="grey-box-wrap reports ico-member">
       <Add changeDisplayModalVal={changeDisplayModalVal}></Add>
-      <ModalBack displayValue={modalDisplay} changeDisplay={changeDisplayModalVal}></ModalBack>
-      <CreateModal displayValue={modalDisplay} changeDisplayModal={changeDisplayModalVal}></CreateModal>
+      <ModalBack
+        displayValue={modalDisplay}
+        changeDisplay={changeDisplayModalVal}
+      ></ModalBack>
+      <CreateModal
+        addTeamMemberHandler={addTeamMemberHandler}
+        displayValue={modalDisplay}
+        changeDisplayModal={changeDisplayModalVal}
+      ></CreateModal>
     </div>
   );
 }

@@ -209,7 +209,7 @@ export let mockProjects = [
     customer: "Aron",
     customerID: 1,
     status: "Archive",
-  },
+  }
 ];
 export let mockTeamMembers = [
   {

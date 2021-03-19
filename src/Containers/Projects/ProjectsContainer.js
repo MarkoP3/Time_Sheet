@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useHistory } from "react-router-dom";
-import {
-  getFirstLetters,
-  getPageRows
-} from "../../Components/Helper/Helper";
+import clientServices from "../../Services/ClientServices/ClientServices";
+import { recordPerPage } from "../../Components/Helper/Helper";
 import Projects from "../../Components/IndexScreen/Projects/Projects";
+import projectServices from "../../Services/ProjectServices/ProjectServices";
+import teamMemberServices from "../../Services/TeamMemberServices/TeamMemberServices";
+import timeSheetServices from "../../Services/TimeSheetServices/TimeSheetServices";
 
 function ProjectsContainer() {
-  //#region variables
   const history = useHistory();
   const filterParams = new URLSearchParams(useLocation().search);
-  const leaders = getPageRows(-1, "", "", "/teamMembers");
-  const customers = getPageRows(-1, "", "", "/clients");
-  //#endregion
+  const [customers, setcustomers] = useState([]);
+  const [leaders, setleaders] = useState([]);
+  const [activeFilterLetter, setactiveFilterLetter] = useState(
+    filterParams.has("firstLetter") ? filterParams.get("firstLetter") : ""
+  );
   const [pageNumber, setpageNumber] = useState(
     filterParams.has("pageNumber") ? filterParams.get("pageNumber") - 1 : 0
   );
@@ -28,29 +30,132 @@ function ProjectsContainer() {
       500
     );
   }
-  const [activeFilterLetter, setactiveFilterLetter] = useState(
-    filterParams.has("firstLetter") ? filterParams.get("firstLetter") : ""
-  );
-  const [projects, setprojects] = useState(
-    getPageRows(
-      pageNumber,
-      activeFilterLetter,
-      filterProjectsText,
-      window.location.pathname
-    )
-  );
-  const [containingProjectLetters, setcontainingProjectLetters] = useState(
-    getFirstLetters(window.location.pathname)
-  );
+
+  const [numberOfPages, setNumberOfPages] = useState(0);
+
+  const [projects, setprojects] = useState([]);
+  const [containingProjectLetters, setcontainingProjectLetters] = useState([]);
   useEffect(() => {
-    setprojects(
-      getPageRows(
+    projectServices.getAllProjectsFirstLetters().then((data) => {
+      setcontainingProjectLetters(data.data);
+    });
+    projectServices
+      .getProjectsOnPage(
         pageNumber,
         activeFilterLetter,
         filterProjectsText,
-        window.location.pathname
+        recordPerPage
       )
-    );
+      .then((data) => {
+        if (data.status == 204) setprojects([]);
+        else setprojects(data.data);
+      });
+    projectServices
+      .getProjectNumberOfPages(
+        activeFilterLetter,
+        filterProjectsText,
+        recordPerPage
+      )
+      .then((data) => {
+        setNumberOfPages(data);
+      });
+    clientServices.getAllClients().then((data) => {
+      setcustomers(data.data);
+    });
+    teamMemberServices.getAllTeamMembers().then((data) => {
+      setleaders(data.data);
+    });
+  }, []);
+  function addProject(project) {
+    projectServices
+      .addProject(project)
+      .then((result) => {
+        return projectServices.getProjectsOnPage(
+          pageNumber,
+          activeFilterLetter,
+          filterProjectsText,
+          recordPerPage
+        );
+      })
+      .then((data) => {
+        setprojects(data.data);
+        console.log("sucessfuly added a project");
+      })
+      .catch((error) => {
+        console.log("Something wen't wrong try again");
+      });
+  }
+  function deleteProject(projectID) {
+    projectServices
+      .deleteProject(projectID)
+      .then((result) => {
+        return projectServices.getProjectsOnPage(
+          pageNumber,
+          activeFilterLetter,
+          filterProjectsText,
+          recordPerPage
+        );
+      })
+      .then((data) => {
+        if (data.status == 204) setprojects([]);
+        else setprojects(data.data);
+        console.log("sucessfuly deleted a project");
+      })
+      .catch((error) => {
+        console.log("Something wen't wrong try again");
+      });
+  }
+  function updateProject(project) {
+    projectServices
+      .updateProject(project)
+      .then((result) => {
+        return projectServices.getProjectsOnPage(
+          pageNumber,
+          activeFilterLetter,
+          filterProjectsText,
+          recordPerPage
+        );
+      })
+      .then((data) => {
+        setprojects(data.data);
+        console.log("sucessfuly updated a project");
+      })
+      .catch((error) => {
+        console.log("Something wen't wrong try again");
+      });
+  }
+  useEffect(() => {
+    clientServices.getAllClients().then((data) => {
+      setcustomers(data.data);
+    });
+    projectServices
+      .getProjectNumberOfPages(
+        activeFilterLetter,
+        filterProjectsText,
+        recordPerPage
+      )
+      .then((data) => {
+        setNumberOfPages(data);
+      });
+    projectServices.getAllProjectsFirstLetters().then((data) => {
+      setcontainingProjectLetters(data.data);
+    });
+    teamMemberServices.getAllTeamMembers().then((data) => {
+      setleaders(data.data);
+    });
+  }, [projects]);
+  useEffect(() => {
+    projectServices
+      .getProjectsOnPage(
+        pageNumber,
+        activeFilterLetter,
+        filterProjectsText,
+        recordPerPage
+      )
+      .then((data) => {
+        if (data.status == 204) setprojects([]);
+        else setprojects(data.data);
+      });
   }, [filterProjectsText, activeFilterLetter, pageNumber]);
   useEffect(() => {
     setactiveFilterLetter(
@@ -69,9 +174,14 @@ function ProjectsContainer() {
       customers={customers}
       filteredProjects={projects}
       containingProjectLetters={containingProjectLetters}
+      pageNumber={pageNumber}
+      numberOfPages={numberOfPages}
       filterText={filterProjectsText}
       activeFilterLetter={activeFilterLetter}
       changeFilterProjectsText={changeFilterProjectsText}
+      addProjectHandler={addProject}
+      updateProjectHandler={updateProject}
+      deleteProjectHandler={deleteProject}
     ></Projects>
   );
 }

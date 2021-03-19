@@ -1,22 +1,31 @@
 import React from "react";
+import { useEffect,useRef,useState } from "react";
 import FancySides from "../../../../Common/FancySides/FancySides";
 import Form from "./Form/Form";
 
-function CreateModal({countries, displayValue, changeDisplayModal }) {
+function CreateModal({addClientHandler,countries, displayValue, changeDisplayModal }) {
+  const [height, setheight] = useState()
+  const [width, setwidth] = useState()
+  const form = useRef()
+  useEffect(() => {
+    setheight(form.current.clientHeight);
+    setwidth(form.current.clientWidth);
+  }, [displayValue])
   return (
     <div
       id="fancybox-wrap"
       style={{
-        width: "470px",
-        height: "auto",
-        top: "calc( 50% - 201px )",
-        left: "calc( 50% - 235px )",
+        width:"470px",
+        maxWidth:"100%",
+        padding:"0px",
+        top: `calc( 50% - ${height/2}px)`,
+        left: `calc( 50% - ${width/2}px)`,
         display: displayValue,
       }}
     >
-      <div id="fancybox-outer">
+      <div id="fancybox-outer" ref={form} >
         <FancySides></FancySides>
-        <Form countries={countries}></Form>
+        <Form addClientHandler={addClientHandler} countries={countries} changeDisplayModal={changeDisplayModal}></Form>
       </div>
       <a
         onClick={(e) => changeDisplayModal("none")}

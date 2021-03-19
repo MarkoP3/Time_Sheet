@@ -1,12 +1,18 @@
-import React from "react";
-import Buttons from "./Buttons/Buttons";
+import React,{useRef,useEffect} from "react";
 import Form from "./Form/Form";
+import $ from 'jquery'
 
-function Details({countries, active, client }) {
+function Details({updateClientHandler,deleteClientHandler,countries, client,open }) {
+  const details = useRef()
+  useEffect(() => {
+    if(open=="block")
+    $(details.current).slideDown('normal');
+    else
+    $(details.current).slideUp('normal');
+  }, [open])
   return (
-    <div className="details" style={{ display: active }}>
-      <Form countries={countries} client={client}></Form>
-      <Buttons></Buttons>
+    <div ref={details} className="details">
+      <Form updateClientHandler={updateClientHandler} deleteClientHandler={deleteClientHandler} countries={countries} client={client}></Form>
     </div>
   );
 }

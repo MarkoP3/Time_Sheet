@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
         {letter}
       </a>
 */
-function Letter({ letter, letterStyle, activateMeURL,changeActive }) {
+function Letter({ letter, letterStyle, activateMeURL }) {
   return (
     <li className={letterStyle}>
 

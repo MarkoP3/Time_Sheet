@@ -2,16 +2,29 @@ import React, { useState } from "react";
 import Heading from "./Heading/Heading";
 import Details from "./Details/Details";
 
-function Item({project,customers,leaders}) {
-  const [active, setactive] = useState("none");
+function Item({
+  deleteProjectHandler,
+  updateProjectHandler,
+  project,
+  customers,
+  leaders,
+}) {
+  const [open, setopen] = useState("none");
   function toggleDetails(e) {
-    if (active == "none") setactive("block");
-    else setactive("none");
+    if (open == "none") setopen("block");
+    else setopen("none");
   }
   return (
     <div className="item">
-      <Heading toggleDetails={toggleDetails} project={project}></Heading>
-      <Details active={active} project={project} customers={customers} leaders={leaders}></Details>
+      <Heading handleHeadingClick={toggleDetails} project={project}></Heading>
+      <Details
+        deleteProjectHandler={deleteProjectHandler}
+        updateProjectHandler={updateProjectHandler}
+        open={open}
+        project={project}
+        customers={customers}
+        leaders={leaders}
+      ></Details>
     </div>
   );
 }
