@@ -71,10 +71,10 @@ function Form({ updateClientHandler, deleteClientHandler, countries, client }) {
           <select required ref={country}>
             <option value="">Select Country</option>
             {countries.map((value) => {
-              if (value.name == client.country)
+              if (value.id == client.countryId)
                 return (
                   <option value={value.id} selected>
-                    {value.name}
+                    {value.name}  
                   </option>
                 );
               else return <option value={value.id}>{value.name}</option>;

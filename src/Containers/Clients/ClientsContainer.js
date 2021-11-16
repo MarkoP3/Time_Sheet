@@ -22,8 +22,8 @@ function ClientsContainer() {
   const [clients, setClients] = useState([]);
   const [countries, setcountries] = useState([]);
   useEffect(() => {
-    countryServices.getAllCountries().then((data) => {
-      setcountries(data.data);
+    countryServices.getAllCountries().then(({ data }) => {
+      setcountries(data);
     });
     clientServices
       .getClientsOnPage(
@@ -32,21 +32,17 @@ function ClientsContainer() {
         filterClientsText,
         recordPerPage
       )
-      .then((data) => {
-        if (data.status == 204) setClients([]);
-        else setClients(data.data);
+      .then(({ data, status }) => {
+        if (status == 204) {
+          setClients([]);
+          setNumberOfPages(0);
+        } else {
+          setClients(data.clients);
+          setNumberOfPages(data.numberOfPages);
+        }
       });
-    clientServices
-      .getClientNumberOfPages(
-        activeFilterLetter,
-        filterClientsText,
-        recordPerPage
-      )
-      .then((data) => {
-        setNumberOfPages(data.data);
-      });
-    clientServices.getAllClientsFirstLetters().then((data) => {
-      setContainingLetters(data.data);
+    clientServices.getAllClientsFirstLetters().then(({ data }) => {
+      setContainingLetters(data);
     });
   }, []);
   let searchTimeout;
@@ -67,9 +63,14 @@ function ClientsContainer() {
           recordPerPage
         );
       })
-      .then((data) => {
-        if (data.status == 204) setClients([]);
-        else setClients(data.data);
+      .then(({ data, status }) => {
+        if (status == 204) {
+          setClients([]);
+          setNumberOfPages(0);
+        } else {
+          setClients(data.clients);
+          setNumberOfPages(data.numberOfPages);
+        }
         console.log("sucessfuly added a client");
       })
       .catch((error) => {
@@ -77,6 +78,7 @@ function ClientsContainer() {
       });
   }
   function deleteClient(clientID) {
+    setNumberOfPages(0);
     clientServices
       .deleteClient(clientID)
       .then((result) => {
@@ -87,9 +89,14 @@ function ClientsContainer() {
           recordPerPage
         );
       })
-      .then((data) => {
-        if (data.status == 204) setClients([]);
-        else setClients(data.data);
+      .then(({ data, status }) => {
+        if (status == 204) {
+          setClients([]);
+          setNumberOfPages(0);
+        } else {
+          setClients(data.clients);
+          setNumberOfPages(data.numberOfPages);
+        }
         console.log("sucessfuly deleted a client");
       })
       .catch((error) => {
@@ -108,9 +115,15 @@ function ClientsContainer() {
           recordPerPage
         );
       })
-      .then((data) => {
-        if (data.status == 204) setClients([]);
-        else setClients(data.data);
+      .then(({ data, status }) => {
+        if (status == 204) {
+          alert("tu sam");
+          setClients([]);
+          setNumberOfPages(0);
+        } else {
+          setClients(data.clients);
+          setNumberOfPages(data.numberOfPages);
+        }
         console.log("sucessfuly updated a client");
       })
       .catch((error) => {
@@ -118,20 +131,11 @@ function ClientsContainer() {
       });
   }
   useEffect(() => {
-    clientServices
-      .getClientNumberOfPages(
-        activeFilterLetter,
-        filterClientsText,
-        recordPerPage
-      )
-      .then((data) => {
-        setNumberOfPages(data.data);
-      });
-    countryServices.getAllCountries().then((data) => {
-      setcountries(data.data);
+    countryServices.getAllCountries().then(({ data }) => {
+      setcountries(data);
     });
-    clientServices.getAllClientsFirstLetters().then((data) => {
-      setContainingLetters(data.data);
+    clientServices.getAllClientsFirstLetters().then(({ data }) => {
+      setContainingLetters(data);
     });
   }, [clients]);
   useEffect(() => {
@@ -142,9 +146,14 @@ function ClientsContainer() {
         filterClientsText,
         recordPerPage
       )
-      .then((data) => {
-        if (data.status == 204) setClients([]);
-        else setClients(data.data);
+      .then(({ data, status }) => {
+        if (status == 204) {
+          setClients([]);
+          setNumberOfPages(0);
+        } else {
+          setClients(data.clients);
+          setNumberOfPages(data.numberOfPages);
+        }
       });
   }, [activeFilterLetter, pageNumber, filterClientsText]);
   useEffect(() => {

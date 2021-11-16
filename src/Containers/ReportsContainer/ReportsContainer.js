@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Reports from "../../Components/IndexScreen/Reports/Reports";
 import clientServices from "../../Services/ClientServices/ClientServices";
-import projectSerivces from "../../Services/ProjectServices/ProjectServices";
+import projectServices from "../../Services/ProjectServices/ProjectServices";
 import teamMemberServices from "../../Services/TeamMemberServices/TeamMemberServices";
 import categoryServices from "../../Services/CategoryServices/CategoryServices";
 import { useLocation } from "react-router-dom";
@@ -91,22 +91,28 @@ function ReportsContainer() {
   }, [timesheet]);
   useEffect(() => {
     clientServices.getAllClients().then((data) => {
-      setclients(data);
+      setclients(data.data);
     });
     teamMemberServices.getAllTeamMembers().then((data) => {
-      setteamMembers(data);
+      setteamMembers(data.data);
     });
-    projectSerivces.getAllProjects().then((data) => {
-      setprojects(data);
+    projectServices.getAllProjects().then((data) => {
+      setprojects(data.data);
     });
     categoryServices.getAllCategories().then((data) => {
       setcategories(data);
     });
   }, []);
   function clientSelectionHandler(clientID) {
-    projectSerivces.getAllProjectsOfCustomer(clientID).then((data) => {
-      setprojects(data);
-    });
+    setprojects([]);
+    if (clientID != "All")
+      projectServices.getAllProjectsOfCustomer(clientID).then((data) => {
+        setprojects(data.data);
+      });
+    else
+      projectServices.getAllProjects().then((data) => {
+        setprojects(data.data);
+      });
   }
   return (
     <Reports

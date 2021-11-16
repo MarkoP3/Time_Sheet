@@ -60,10 +60,10 @@ function TeamMembersContainer() {
       })
       .then((data) => {
         setTeamMembers(data.data);
-        alert("sucessfuly added a team member");
+        console.log("sucessfuly added a team member");
       })
       .catch((error) => {
-        alert("Something wen't wrong try again");
+        console.log("Something wen't wrong try again");
       });
   }
   function updateTeamMember(teamMember) {
@@ -77,13 +77,14 @@ function TeamMembersContainer() {
       })
       .then((data) => {
         setTeamMembers(data.data);
-        alert("sucessfuly updated a team member");
+        console.log("sucessfuly updated a team member");
       })
       .catch((error) => {
-        alert("Something wen't wrong try again");
+        console.log("Something wen't wrong try again");
       });
   }
   function deleteTeamMember(teamMemberID) {
+    setNumberOfPages(0);
     teamMemberServices
       .deleteTeamMember(teamMemberID)
       .then((result) => {
@@ -95,10 +96,10 @@ function TeamMembersContainer() {
       .then((data) => {
         if (data.status == 204) setTeamMembers([]);
         else setTeamMembers(data.data);
-        alert("sucessfuly deleted a team member");
+        console.log("sucessfuly deleted a team member");
       })
       .catch((error) => {
-        alert("Something wen't wrong try again");
+        console.log("Something wen't wrong try again");
       });
   }
   return (

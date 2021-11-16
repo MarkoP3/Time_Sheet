@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import teamMemberServices from "../../../../Services/TeamMemberServices/TeamMemberServices";
+import timeSheetServices from "../../../../Services/TimeSheetServices/TimeSheetServices";
 import {
   toPreviousMondayDays,
   numOfWeeksFromTo,
@@ -7,11 +9,7 @@ import {
 import Cell from "./Cell/Cell";
 import Header from "./Header/Header";
 import MobileHeader from "./MobileHeader/MobileHeader";
-function Calendar({ date }) {
-  let lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 1);
-  let startingDate = new Date(
-    new Date(date).setDate(date.getDate() - toPreviousMondayDays(date))
-  );
+function Calendar({ date, startingDate, lastDay, times, hoursPerDay }) {
   let cols = new Array(daysInWeek)
     .fill(undefined)
     .map((value, index) => (value = index));
@@ -31,7 +29,106 @@ function Calendar({ date }) {
                 startingDate = new Date(
                   startingDate.setDate(startingDate.getDate() + 1)
                 );
-                return <Cell date={cellDate} hours="5"></Cell>;
+                console.log(cellDate.getMonth());
+                if (
+                  date.getMonth() > cellDate.getMonth() ||
+                  date.getFullYear() > cellDate.getFullYear()
+                )
+                  return (
+                    <Cell
+                      style={`${
+                        times.filter(
+                          (el) =>
+                            new Date(el.date).getTime() == cellDate.getTime()
+                        ).length > 0
+                          ? times.filter(
+                              (el) =>
+                                new Date(el.date).getTime() ==
+                                cellDate.getTime()
+                            )[0].hours <= hoursPerDay
+                            ? "positive"
+                            : "negative"
+                          : ""
+                      } previouse`}
+                      date={cellDate}
+                      hours={
+                        times.filter(
+                          (el) =>
+                            new Date(el.date).getTime() == cellDate.getTime()
+                        ).length > 0
+                          ? times.filter(
+                              (el) =>
+                                new Date(el.date).getTime() ==
+                                cellDate.getTime()
+                            )[0].hours
+                          : "0"
+                      }
+                    ></Cell>
+                  );
+                else if (date.getMonth() < cellDate.getMonth())
+                  return (
+                    <Cell
+                      style={`${
+                        times.filter(
+                          (el) =>
+                            new Date(el.date).getTime() == cellDate.getTime()
+                        ).length > 0
+                          ? times.filter(
+                              (el) =>
+                                new Date(el.date).getTime() ==
+                                cellDate.getTime()
+                            )[0].hours <= hoursPerDay
+                            ? "positive"
+                            : "negative"
+                          : ""
+                      } disable`}
+                      date={cellDate}
+                      hours={
+                        times.filter(
+                          (el) =>
+                            new Date(el.date).getTime() == cellDate.getTime()
+                        ).length > 0
+                          ? times.filter(
+                              (el) =>
+                                new Date(el.date).getTime() ==
+                                cellDate.getTime()
+                            )[0].hours
+                          : "0"
+                      }
+                    ></Cell>
+                  );
+                else
+                  return (
+                    <Cell
+                      style={`${
+                        times.filter(
+                          (el) =>
+                            new Date(el.date).getTime() == cellDate.getTime()
+                        ).length > 0
+                          ? times.filter(
+                              (el) =>
+                                new Date(el.date).getTime() ==
+                                cellDate.getTime()
+                            )[0].hours <= hoursPerDay
+                            ? "positive"
+                            : "negative"
+                          : ""
+                      }`}
+                      date={cellDate}
+                      hours={
+                        times.filter(
+                          (el) =>
+                            new Date(el.date).getTime() == cellDate.getTime()
+                        ).length > 0
+                          ? times.filter(
+                              (el) =>
+                                new Date(el.date).getTime() ==
+                                cellDate.getTime()
+                            )[0].hours
+                          : "0"
+                      }
+                    ></Cell>
+                  );
               })}
             </tr>
           );

@@ -86,20 +86,25 @@ const clientServices = {
     return axios.delete(`${process.env.REACT_APP_API_URL}clients/${clientID}`);
   },
   updateClient: (client) => {
-    return axios.put(`${process.env.REACT_APP_API_URL}clients`, client);
+    return axios.put(
+      `${process.env.REACT_APP_API_URL}clients/${client.id}`,
+      client
+    );
   },
   getClientsOnPage: (page, firstLetter, filterText, recordPerPage) => {
     return axios.get(
-      `${process.env.REACT_APP_API_URL}clients/onPage?page=${page}&firstLetter=${firstLetter}&filterText=${filterText}&recordsPerPage=${recordPerPage}`
+      `${process.env.REACT_APP_API_URL}clients?page=${
+        page + 1
+      }&firstLetter=${firstLetter}&filterText=${filterText}&recordsPerPage=${recordPerPage}`
     );
   },
   getClientNumberOfPages: (firstLetter, filterText, recordPerPage) => {
     return axios.get(
-      `${process.env.REACT_APP_API_URL}clients/numberOfPages?firstLetter=${firstLetter}&filterText=${filterText}&recordsPerPage=${recordPerPage}`
+      `${process.env.REACT_APP_API_URL}clients/number-of-pages?firstLetter=${firstLetter}&filterText=${filterText}&recordsPerPage=${recordPerPage}`
     );
   },
   getAllClientsFirstLetters: () => {
-    return axios.get(`${process.env.REACT_APP_API_URL}clients/firstLetters`);
+    return axios.get(`${process.env.REACT_APP_API_URL}clients/first-letters`);
   },
   getAllClients: () => {
     return axios.get(`${process.env.REACT_APP_API_URL}clients`);

@@ -11,13 +11,12 @@ import LoginScreen from "./Components/LoginScreen/LoginScreen";
 import ProjectsContainer from "./Containers/Projects/ProjectsContainer";
 import Categories from "./Components/IndexScreen/Categories/Categories";
 import Header from "./Components/IndexScreen/Header/Header";
-import TimeSheet from "./Components/IndexScreen/TimeSheet/TimeSheet";
-import Reports from "./Components/IndexScreen/Reports/Reports";
 import Footer from "./Components/IndexScreen/Footer/Footer";
 import DaySheet from "./Components/IndexScreen/DaySheet/DaySheet";
 import ClientsContainer from "./Containers/Clients/ClientsContainer";
 import TeamMembersContainer from "./Containers/TeamMembers/TeamMembersContainer";
 import ReportsContainer from "./Containers/ReportsContainer/ReportsContainer";
+import TimeSheetContainer from "./Containers/TimeSheetContainer/TimeSheetContainer";
 function App() {
   return (
     <div className="container">
@@ -36,7 +35,7 @@ function App() {
           </Route>
           <Route path="/timesheet/:year/:month">
             <Header></Header>
-            <TimeSheet></TimeSheet>
+            <TimeSheetContainer></TimeSheetContainer>
             <Footer></Footer>
           </Route>
           <Route path="/timesheet">

@@ -46,24 +46,22 @@ function ProjectsContainer() {
         filterProjectsText,
         recordPerPage
       )
-      .then((data) => {
-        if (data.status == 204) setprojects([]);
-        else setprojects(data.data);
+      .then(({ data, status }) => {
+        console.log(`data`, status);
+        if (status == 204) {
+          setprojects([]);
+          setNumberOfPages(0);
+        } else {
+          setprojects(data.projects);
+          setNumberOfPages(data.numberOfPages);
+        }
       });
-    projectServices
-      .getProjectNumberOfPages(
-        activeFilterLetter,
-        filterProjectsText,
-        recordPerPage
-      )
-      .then((data) => {
-        setNumberOfPages(data);
-      });
-    clientServices.getAllClients().then((data) => {
-      setcustomers(data.data);
+    clientServices.getAllClients().then(({ data, status }) => {
+      if (status == 204) setcustomers([]);
+      else setcustomers(data.clients);
     });
-    teamMemberServices.getAllTeamMembers().then((data) => {
-      setleaders(data.data);
+    teamMemberServices.getAllTeamMembers().then(({ data, status }) => {
+      setleaders(data);
     });
   }, []);
   function addProject(project) {
@@ -77,8 +75,14 @@ function ProjectsContainer() {
           recordPerPage
         );
       })
-      .then((data) => {
-        setprojects(data.data);
+      .then(({ data, status }) => {
+        if (status == 204) {
+          setprojects([]);
+          setNumberOfPages(0);
+        } else {
+          setprojects(data.projects);
+          setNumberOfPages(data.numberOfPages);
+        }
         console.log("sucessfuly added a project");
       })
       .catch((error) => {
@@ -86,6 +90,7 @@ function ProjectsContainer() {
       });
   }
   function deleteProject(projectID) {
+    setNumberOfPages(0);
     projectServices
       .deleteProject(projectID)
       .then((result) => {
@@ -96,12 +101,18 @@ function ProjectsContainer() {
           recordPerPage
         );
       })
-      .then((data) => {
-        if (data.status == 204) setprojects([]);
-        else setprojects(data.data);
+      .then(({ data, status }) => {
+        if (status == 204) {
+          setprojects([]);
+          setNumberOfPages(0);
+        } else {
+          setprojects(data.projects);
+          setNumberOfPages(data.numberOfPages);
+        }
         console.log("sucessfuly deleted a project");
       })
       .catch((error) => {
+        console.log(`error`, error);
         console.log("Something wen't wrong try again");
       });
   }
@@ -116,8 +127,14 @@ function ProjectsContainer() {
           recordPerPage
         );
       })
-      .then((data) => {
-        setprojects(data.data);
+      .then(({ data, status }) => {
+        if (status == 204) {
+          setprojects([]);
+          setNumberOfPages(0);
+        } else {
+          setprojects(data.projects);
+          setNumberOfPages(data.numberOfPages);
+        }
         console.log("sucessfuly updated a project");
       })
       .catch((error) => {
@@ -125,18 +142,10 @@ function ProjectsContainer() {
       });
   }
   useEffect(() => {
-    clientServices.getAllClients().then((data) => {
-      setcustomers(data.data);
+    clientServices.getAllClients().then(({ data, status }) => {
+      if (status == 204) setcustomers([]);
+      else setcustomers(data.clients);
     });
-    projectServices
-      .getProjectNumberOfPages(
-        activeFilterLetter,
-        filterProjectsText,
-        recordPerPage
-      )
-      .then((data) => {
-        setNumberOfPages(data);
-      });
     projectServices.getAllProjectsFirstLetters().then((data) => {
       setcontainingProjectLetters(data.data);
     });
@@ -152,9 +161,14 @@ function ProjectsContainer() {
         filterProjectsText,
         recordPerPage
       )
-      .then((data) => {
-        if (data.status == 204) setprojects([]);
-        else setprojects(data.data);
+      .then(({ data, status }) => {
+        if (status == 204) {
+          setprojects([]);
+          setNumberOfPages(0);
+        } else {
+          setprojects(data.projects);
+          setNumberOfPages(data.numberOfPages);
+        }
       });
   }, [filterProjectsText, activeFilterLetter, pageNumber]);
   useEffect(() => {

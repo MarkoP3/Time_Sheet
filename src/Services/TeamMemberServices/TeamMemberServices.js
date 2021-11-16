@@ -31,72 +31,38 @@ const axios = require("axios");
 const teamMemberServices = {
   addTeamMember: (teamMember) => {
     return axios.post(
-      `${process.env.REACT_APP_API_URL}teamMembers`,
+      `${process.env.REACT_APP_API_URL}team-members`,
       teamMember
     );
-    /*return new Promise((resolve, reject) => {
-      teamMember.id = mockTeamMembers.length + 1;
-      mockTeamMembers.push(teamMember);
-      resolve(true);
-    });*/
   },
   deleteTeamMember: (teamMemberID) => {
     return axios.delete(
-      `${process.env.REACT_APP_API_URL}teamMembers/${teamMemberID}`
+      `${process.env.REACT_APP_API_URL}team-members/${teamMemberID}`
     );
-    /*return new Promise((resolve, reject) => {
-      mockTeamMembers.splice(
-        mockTeamMembers.findIndex(
-          (teamMember) => teamMember.id == teamMemberID
-        ),
-        1
-      );
-      resolve(true);
-    });*/
   },
   updateTeamMember: (teamMember) => {
-    return axios.put(`${process.env.REACT_APP_API_URL}teamMembers`, teamMember);
-    /*return new Promise((resolve, reject) => {
-      mockTeamMembers[
-        mockTeamMembers.findIndex(
-          (teamMemberItem) => teamMemberItem.id == teamMember.id
-        )
-      ] = teamMember;
-      resolve(true);
-    });*/
+    return axios.put(
+      `${process.env.REACT_APP_API_URL}team-members`,
+      teamMember
+    );
   },
   getTeamMembersOnPage: (page, recordPerPage) => {
     return axios.get(
-      `${process.env.REACT_APP_API_URL}teamMembers/onPage?page=${page}&recordsPerPage=${recordPerPage}`
+      `${process.env.REACT_APP_API_URL}team-members/page/${page}?recordsPerPage=${recordPerPage}`
     );
-    /*return new Promise((resolve, reject) => {
-      resolve(
-        mockTeamMembers.slice(
-          page * recordPerPage,
-          page * recordPerPage + recordPerPage
-        )
-      );
-    });*/
   },
   getTeamMemberNumberOfPages: (recordPerPage) => {
     return axios.get(
-      `${process.env.REACT_APP_API_URL}teamMembers/numberOfPages?recordsPerPage=${recordPerPage}`
+      `${process.env.REACT_APP_API_URL}team-members/numberOfPages?recordsPerPage=${recordPerPage}`
     );
-    /*return new Promise((resolve, reject) => {
-      resolve(Math.ceil(mockTeamMembers.length / recordPerPage));
-    });*/
   },
-  getAllTeamMembers() {
-    return axios.get(`${process.env.REACT_APP_API_URL}teamMembers`);
-    /*
-    return new Promise((resolve, reject) =>
-      resolve(
-        mockTeamMembers.map((teamMember) => ({
-          id: teamMember.id,
-          name: teamMember.name,
-        }))
-      )
-    );*/
+  getAllTeamMembers: () => {
+    return axios.get(`${process.env.REACT_APP_API_URL}team-members`);
+  },
+  getHoursPerDay: () => {
+    return axios.get(
+      `${process.env.REACT_APP_API_URL}team-members/42b667ab-d17b-4a8f-aa97-a3f5c62467c1/hours-per-day`
+    );
   },
   resetPassword: (teamMemeberID) => {
     return new Promise((resolve, reject) => {

@@ -21,7 +21,7 @@ export function numOfWeeksFromTo(from, to) {
 export let milisecondsPerDay = 86400000;
 export let daysInWeek = 7;
 export function toPreviousMondayDays(date) {
-  return (date.getDay() == 0 ? daysInWeek : date.getDay()) - 1;
+  return date.getDay() == 0 ? daysInWeek : date.getDay();
 }
 export let days = [
   "MONDAY",
@@ -209,7 +209,7 @@ export let mockProjects = [
     customer: "Aron",
     customerID: 1,
     status: "Archive",
-  }
+  },
 ];
 export let mockTeamMembers = [
   {
@@ -246,15 +246,13 @@ export let mockCountries = [
 ];
 
 export function getPageRows(page, firstLetter, filterText, screen) {
-
   const screens = {
     "/projects": mockProjects,
     "/clients": mockClients,
     "/teamMembers": mockTeamMembers,
   };
   const mockData = screens[screen];
-  if(page==-1)
-  {
+  if (page == -1) {
     return mockData;
   }
   if (firstLetter != "")
@@ -303,10 +301,9 @@ export function getFirstLetters(screen) {
     "/teamMembers": mockTeamMembers,
   };
   const mockData = screens[screen];
- return mockData
-      .map((row) => row.name[0].toLowerCase())
-      .filter((value, index, item) => {
-        return item.indexOf(value) === index;
-      });
-  
+  return mockData
+    .map((row) => row.name[0].toLowerCase())
+    .filter((value, index, item) => {
+      return item.indexOf(value) === index;
+    });
 }
